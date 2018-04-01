@@ -1,1 +1,0 @@
-Caracteres em UTF-8: " - 9 A B a b ~ À ã ç é ÿ Σ α — "
