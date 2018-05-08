@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.rhenanrk</groupId>
+    <artifactId>integracao-2018</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+
+    <name>com.github.rhenanrk:i-2018</name>
+
+    <description>
+        Atividades avaliativas da disciplina Integracao de Aplicacao.
+    </description>
+
+    <url>https://github.com/rhenanrk/i-2018</url>
+
+    <inceptionYear>2018</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Creative Commons Attribution 4.0 International (CC BY 4.0)</name>
+            <comments>A atribuição deve conter, explicitamente, a seguinte linha:
+                Copyright (c) 2016. Rhenan Konrad - Instituto de Informática (UFG)
+            </comments>
+            <url>https://creativecommons.org/licenses/by/4.0/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>rhenanrk</id>
+            <name>Rhenan Konrad</name>
+            <email>rhenan_konrad@hotmail.com</email>
+            <organization>Instituto de Informática (UFG)</organization>
+            <organizationUrl>http://www.inf.ufg.br</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/rhenanrk/i-2018.git</connection>
+        <developerConnection>scm:git:https://github.com/rhenanrk/i-2018.git</developerConnection>
+        <url>https://github.com/rhenanrk/i-2018</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <!-- Executa spotbugs: mvn com.github.hazendaz.spotbugs:spotbugs-maven-plugin:3.1.0-RC4:gui -->
+        <dependency>
+            <groupId>com.github.hazendaz.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>3.1.0-RC4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.7</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
