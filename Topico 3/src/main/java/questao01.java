@@ -13,18 +13,18 @@ public class questao01 {
 
         while ((linha = reader.readLine()) != null) {
             
-            if ((linha = reader.readLine()) == "NOME,EMAIL") {
-                System.out.println("teste");
-                continue; }
+//            if ((linha = reader.readLine()) == "NOME,EMAIL") {
+//                System.out.println("teste");
+//                continue; }
 
-            else {
+            //else {
                 String[] dadosUsuario = linha.split(VIRGULA);
                 System.out.println("    <aluno>");
                 System.out.println("        <nome>" + dadosUsuario[0]+ "</nome>");
                 System.out.println("        <email>" + dadosUsuario[1] + "</email>");
                 System.out.println("    </aluno>");
             }
-        }
+        //}
 
         System.out.println("</alunos>");
         reader.close();
