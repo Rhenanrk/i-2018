@@ -9,6 +9,8 @@ import java.io.*;
  */
 
 public class ManipulaArquivo {
+
+
     public static void geraXML(String arq) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(arq + ".csv")));
         BufferedWriter write = new BufferedWriter(new FileWriter(arq + ".xml"));
