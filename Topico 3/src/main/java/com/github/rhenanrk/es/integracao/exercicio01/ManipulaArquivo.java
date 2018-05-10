@@ -19,7 +19,7 @@ public class ManipulaArquivo {
         final String VIRGULA = ",";
         final String cabecalho = "NOME,EMAIL";
 
-        write.append("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + "\n");
+        write.append("<?xml version='1.0' encoding='UTF-8'?>" + "\n");
         write.append("<alunos>" + "\n");
 
         while ((linha = reader.readLine()) != null) {

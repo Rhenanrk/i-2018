@@ -1,0 +1,33 @@
+<calcados>
+
+    <tenis>
+        <marca>Puma</marca>
+        <preco>250.99</preco>
+        <esporte>Corrida</esporte>
+    </tenis>
+
+    <tenis>
+        <marca>Adidas</marca>
+        <preco>290.99</preco>
+        <esporte>Caminhada</esporte>
+    </tenis>
+
+    <sapato>
+        <marca>Nike</marca>
+        <preco>250.00</preco>
+        <cor>255, 255, 255</cor>
+    </sapato>
+
+    <sapato>
+        <marca>Lacoste</marca>
+        <preco>459.99</preco>
+        <cor>255, 0, 0</cor>
+    </sapato>
+
+    <tenis>
+        <marca>Oakley</marca>
+        <preco>290.99</preco>
+        <esporte>Caminhada</esporte>
+    </tenis>
+
+</calcados>
