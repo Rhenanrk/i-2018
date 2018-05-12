@@ -24,10 +24,4 @@
         <cor>255, 0, 0</cor>
     </sapato>
 
-    <tenis>
-        <marca>Oakley</marca>
-        <preco>290.99</preco>
-        <esporte>Caminhada</esporte>
-    </tenis>
-
 </calcados>
