@@ -5,6 +5,7 @@
  */
 
 package com.github.rhenanrk.es.integracao.exercicio03;
+
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -43,14 +44,14 @@ public class Main {
 
         switch (opcao) {
             case 1:
-            // método que converte objetos em XML e serializa
-            serializaObjeto(turma);
-            break;
+                // método que converte objetos em XML e serializa
+                serializaObjeto(turma);
+                break;
 
             case 2:
-            // método que converte arquivo XML em objeto
-            desserializaObjeto();
-            break;
+                // método que converte arquivo XML em objeto
+                desserializaObjeto();
+                break;
         }
     }
 
@@ -69,6 +70,8 @@ public class Main {
             // escrevendo no arquivo XML
             jaxbMarshaller.marshal(turma, XMLfile);
 
+            System.out.println("---------\nObjeto serializado com sucesso!\n---------");
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -84,6 +87,8 @@ public class Main {
 
             // instancia a partir de objeto serializado em doc XML
             Turma turma = (Turma) un.unmarshal(new FileReader("Turma.xml"));
+
+            System.out.println("---------\nObjeto desserializado com sucesso!\n---------");
 
         } catch (Exception e) {
             e.printStackTrace();
