@@ -2,6 +2,12 @@ package com.github.rhenanrk.es.integracao.exercicio02;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+/**
+ * Classe responssável por definir as propriedades do objeto Sapato
+ *
+ * @author rhenanrk
+ */
+
 public final class Sapato {
     @JacksonXmlProperty(localName = "marca")
     private String marca;
@@ -44,6 +50,12 @@ public final class Sapato {
         this.cor = cor;
     }
 
+
+    /**
+     * Método responssável por definir as propriedades de formatação do objeto Sapato
+     *
+     * @return String - Propriedades formatadas de Sapato
+     */
     @Override
     public String toString() {
         return "\n  Sapato {" +

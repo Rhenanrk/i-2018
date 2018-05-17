@@ -7,6 +7,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Classe responssável por instanciar o objeto Sapataria, que contem, respestivamente,
+ * objetos do tipo Sapato e Tenis
+ *
+ * O arquivo de entrada deve estar presente na pasta raiz
+ *
+ * @author rhenanrk
+ */
+
 public class Parser {
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new XmlMapper();

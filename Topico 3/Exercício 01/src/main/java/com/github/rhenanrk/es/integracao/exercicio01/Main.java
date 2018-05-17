@@ -1,11 +1,13 @@
+// copyright
 package com.github.rhenanrk.es.integracao.exercicio01;
 
 import java.util.Scanner;
 
 /**
- * Classe principal, chama o método que manipula o arquivo e passa como paramentro o nome do arquivo de entrada
+ * Classe principal responssável por chamar o método que gera o arquivo esperado no formato .XML e passa
+ * como paramentro o nome do arquivo de entrada no formato .CSV
  *
- * @author rhenanrk
+
  */
 
 public class Main {

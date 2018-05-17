@@ -4,6 +4,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.util.Arrays;
 
+/**
+ * Classe responssável por desserializar, a partir de arquivo .XML, objetos do tipo Sapato e Tenis
+ *
+ * @author rhenanrk
+ */
+
 @JacksonXmlRootElement(localName = "calcados")
 public final class Sapataria {
     @JacksonXmlElementWrapper(localName = "tenis", useWrapping = false)

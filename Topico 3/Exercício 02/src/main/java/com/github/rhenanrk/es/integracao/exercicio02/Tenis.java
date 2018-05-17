@@ -2,6 +2,12 @@ package com.github.rhenanrk.es.integracao.exercicio02;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+/**
+ * Classe responssável por definir as propriedades do objeto Tenis
+ *
+ * @author rhenanrk
+ */
+
 public final class Tenis {
     @JacksonXmlProperty(localName = "marca")
     private String marca;
@@ -43,6 +49,12 @@ public final class Tenis {
         this.esporte = esporte;
     }
 
+
+    /**
+     * Método responssável por definir as propriedades de formatação do objeto Tenis
+     *
+     * @return String - Propriedades formatadas de Tenis
+     */
     @Override
     public String toString() {
         return "\n  Tenis {" +
