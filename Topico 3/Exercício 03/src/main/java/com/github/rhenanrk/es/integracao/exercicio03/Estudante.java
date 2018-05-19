@@ -6,6 +6,9 @@
 
 package com.github.rhenanrk.es.integracao.exercicio03;
 
+/**
+ * Classe responsavel por definir os atributos do objeto Endereco
+ */
 public class Estudante {
 
     public Estudante() {

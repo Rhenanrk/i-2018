@@ -19,6 +19,12 @@
     </sapato>
 
     <sapato>
+        <marca>Zara</marca>
+        <preco>320.00</preco>
+        <cor>221, 146, 205</cor>
+    </sapato>
+
+    <sapato>
         <marca>Lacoste</marca>
         <preco>459.99</preco>
         <cor>255, 0, 0</cor>

@@ -1,14 +1,17 @@
+/*
+ * Copyright (c) 2018.
+ * Rhenan Konrad
+ * Creative Commons Attribution 4.0 International License.
+ */
+
 package com.github.rhenanrk.es.integracao.exercicio02;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
- * Classe responssável por definir as propriedades do objeto Sapato
- *
- * @author rhenanrk
+ * Classe responsável por definir as propriedades do objeto Sapato
  */
-
-public final class Sapato {
+public class Sapato {
     @JacksonXmlProperty(localName = "marca")
     private String marca;
     @JacksonXmlProperty(localName = "preco")
@@ -50,9 +53,8 @@ public final class Sapato {
         this.cor = cor;
     }
 
-
     /**
-     * Método responssável por definir as propriedades de formatação do objeto Sapato
+     * Método responsável por definir as propriedades de formatação do objeto Sapato
      *
      * @return String - Propriedades formatadas de Sapato
      */

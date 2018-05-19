@@ -7,7 +7,6 @@ package com.github.rhenanrk.es.integracao.exercicio01;
 
 /**
  * Classe responsável por definir as propriedades do objeto Aluno
- *
  */
 public class Aluno {
     private String nome;

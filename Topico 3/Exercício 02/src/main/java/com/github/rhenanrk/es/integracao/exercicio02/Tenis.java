@@ -1,14 +1,17 @@
+/*
+ * Copyright (c) 2018.
+ * Rhenan Konrad
+ * Creative Commons Attribution 4.0 International License.
+ */
+
 package com.github.rhenanrk.es.integracao.exercicio02;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
- * Classe responssável por definir as propriedades do objeto Tenis
- *
- * @author rhenanrk
+ * Classe responsável por definir as propriedades do objeto Tenis
  */
-
-public final class Tenis {
+public class Tenis {
     @JacksonXmlProperty(localName = "marca")
     private String marca;
     @JacksonXmlProperty(localName = "preco")
@@ -49,9 +52,8 @@ public final class Tenis {
         this.esporte = esporte;
     }
 
-
     /**
-     * Método responssável por definir as propriedades de formatação do objeto Tenis
+     * Método responsável por definir as propriedades de formatação do objeto Tenis
      *
      * @return String - Propriedades formatadas de Tenis
      */

@@ -12,8 +12,10 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-// define 'Turma.java' como o elemento raiz
-@XmlRootElement()
+/**
+ * Classe responsavel por definir os atributos do objeto Turma
+ */
+@XmlRootElement()  // defina o objeto Turma como a raiz do arquivo XML
 @XmlType(propOrder = {"listOfEstudantes"})
 public class Turma {
 

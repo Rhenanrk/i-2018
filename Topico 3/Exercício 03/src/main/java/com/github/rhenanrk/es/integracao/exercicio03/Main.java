@@ -17,14 +17,26 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+/**
+ * Classe principal do programa
+ * Usuário define, por meio de terminal, se irá gerar um arquivo XML a partir dos objetos pré-definidos
+ * ou se irá gerar objetos a partir de um arquivo XML de entrada
+ */
 public class Main {
+
+    /**
+     * Método principal do programa
+     * Invoca os metodos de serialização e desserialização
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         // criando estudantes
         List<Estudante> estudanteList = new ArrayList<Estudante>();
         Estudante rhenan = new Estudante("Rhenan Konrad");
         estudanteList.add(rhenan);
-        Estudante joao = new Estudante("Menino Neymar");
+        Estudante joao = new Estudante("João Alfredo");
         estudanteList.add(joao);
 
         // definindo endereço dos estudantes
@@ -39,7 +51,7 @@ public class Main {
         turma.setListOfEstudantes((ArrayList<Estudante>) estudanteList);
 
         Scanner leitor = new Scanner(System.in);
-        System.out.print("1 - Serializa objeto\n2 - Desserializa objeto\nOpção: ");
+        System.out.print("1 - Serializa objeto\n2 - Desserializa objeto\nAlternativa: ");
         int opcao = leitor.nextInt();
 
         switch (opcao) {
@@ -55,6 +67,11 @@ public class Main {
         }
     }
 
+    /**
+     * Método responsável por serializar o objeto passado como parametro
+     *
+     * @param turma
+     */
     private static void serializaObjeto(Turma turma) {
         try {
             // cria JAXB context e inicializa o Marshaller
@@ -63,20 +80,27 @@ public class Main {
 
             // configurando para obter o formato de saída adequado
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 
             // especificando o nome do arquivo xml que será criado na pasta raiz
-            File XMLfile = new File("Turma.xml");
+            Scanner leitor = new Scanner(System.in);
+            System.out.print("Nome do arquivo a ser gerado: ");
+            String arquivoSaída = leitor.next();
+            File XMLfile = new File(arquivoSaída + ".xml");
 
             // escrevendo no arquivo XML
             jaxbMarshaller.marshal(turma, XMLfile);
 
-            System.out.println("---------\nObjeto serializado com sucesso!\n---------");
+            System.out.println("\n---------\nObjeto serializado com sucesso!\n---------");
 
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Método responsável por gerar objeto a partir de arquivo XML de entrada
+     */
     private static void desserializaObjeto() {
         try {
             // cria JAXB context
@@ -86,9 +110,12 @@ public class Main {
             Unmarshaller un = context.createUnmarshaller();
 
             // instancia a partir de objeto serializado em doc XML
-            Turma turma = (Turma) un.unmarshal(new FileReader("Turma.xml"));
+            Scanner leitor = new Scanner(System.in);
+            System.out.print("Nome do arquivo de entrada: ");
+            String arquivoEntrada = leitor.next();
+            Turma turma = (Turma) un.unmarshal(new FileReader(arquivoEntrada + ".xml"));
 
-            System.out.println("---------\nObjeto desserializado com sucesso!\n---------");
+            System.out.println("\n---------\nObjeto desserializado com sucesso!\n---------");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -31,7 +31,6 @@ public class Main {
         transformaCsvEmObjeto(turma, alunos);
 
         transformaObjetoEmXml(turma);
-
     }
 
     /**
@@ -40,7 +39,7 @@ public class Main {
      * @param turma
      * @param alunos
      */
-    private static void transformaCsvEmObjeto(Turma turma, ArrayList<Aluno> alunos){
+    private static void transformaCsvEmObjeto(Turma turma, ArrayList<Aluno> alunos) {
         BufferedReader br = null;
         String linha = "";
         String VIRGULA = ",";
@@ -76,6 +75,7 @@ public class Main {
             JAXBContext context = JAXBContext.newInstance(Turma.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
             m.marshal(turma, new File("Arq.xml"));
         } catch (JAXBException e) {
             System.out.println("Erro na criação do arquivo de saída: " + e);
