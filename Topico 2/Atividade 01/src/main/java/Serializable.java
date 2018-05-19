@@ -1,5 +1,3 @@
-package serializable_1;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,8 +14,7 @@ public class Serializable {
         try {
 
             //Gera o arquivo para armazenar o objeto
-            FileOutputStream arquivoGrav
-                    = new FileOutputStream("C:/Users/rhena/Desktop/saida.dat");
+            FileOutputStream arquivoGrav = new FileOutputStream("saida.dat");
 
             //Classe responsavel por inserir os objetos
             ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
@@ -40,7 +37,5 @@ public class Serializable {
             e.printStackTrace();
 
         }
-
     }
-
 }
