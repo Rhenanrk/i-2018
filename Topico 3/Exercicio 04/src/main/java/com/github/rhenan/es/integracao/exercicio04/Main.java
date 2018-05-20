@@ -9,15 +9,30 @@ package com.github.rhenan.es.integracao.exercicio04;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Scanner;
 
+/**
+ * Classe principal do programa
+ *
+ * Serializo o objeto Individuo
+ */
 public class Main {
+
+    /**
+     * Método principal
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
 
         Individuo fulano = new Individuo();
 
         serializaObjeto(fulano);
+
+        desserializaObjeto();
 
 
     }
@@ -44,6 +59,27 @@ public class Main {
             System.out.println("\n---------\nObjeto serializado com sucesso!\n---------");
 
         } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void desserializaObjeto() {
+        try {
+            // cria JAXB context
+            JAXBContext context = JAXBContext.newInstance(Individuo.class);
+
+            // transforme arquivo XML em objeto
+            Unmarshaller un = context.createUnmarshaller();
+
+            // instancia a partir de objeto serializado em doc XML
+            Scanner leitor = new Scanner(System.in);
+            System.out.print("Nome do arquivo de entrada: ");
+            String arquivoEntrada = leitor.next();
+            Individuo fulano = (Individuo) un.unmarshal(new FileReader(arquivoEntrada + ".xml"));
+
+            System.out.println("\n---------\nObjeto desserializado com sucesso!\n---------");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
