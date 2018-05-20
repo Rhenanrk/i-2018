@@ -1,1 +1,0 @@
-{"nome":"Rhenan Konrad","idade":20,"endereco":{"CEP":"74665-555","logradouro":"Avenida Afonso Pena"}}
