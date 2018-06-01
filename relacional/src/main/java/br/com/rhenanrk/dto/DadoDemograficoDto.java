@@ -13,7 +13,7 @@ public class DadoDemograficoDto {
     private String nascimentoAcuracia;
     private String dataObito;
     private String obitoAcuracia;
-    private String fonteNotificacaoObito;
+    private int fonteNotificacaoObito;
     private String sexo;
     private String nomeMae;
     private String nomePai;
@@ -68,11 +68,11 @@ public class DadoDemograficoDto {
         this.obitoAcuracia = obitoAcuracia;
     }
 
-    public String getFonteNotificacaoObito() {
+    public int getFonteNotificacaoObito() {
         return fonteNotificacaoObito;
     }
 
-    public void setFonteNotificacaoObito(String fonteNotificacaoObito) {
+    public void setFonteNotificacaoObito(int fonteNotificacaoObito) {
         this.fonteNotificacaoObito = fonteNotificacaoObito;
     }
 

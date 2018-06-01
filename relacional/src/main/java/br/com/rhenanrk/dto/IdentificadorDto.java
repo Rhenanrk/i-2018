@@ -13,7 +13,7 @@ public class IdentificadorDto {
     private String designacao;
     private int area;
     private String emissor;
-    private String data;
+    private String dataEmissao;
     private String tipo;
 
     public String getsurrogateKey() {
@@ -56,12 +56,12 @@ public class IdentificadorDto {
         this.emissor = emissor;
     }
 
-    public String getData() {
-        return data;
+    public String getDataEmissao() {
+        return dataEmissao;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDataEmissao(String dataEmissao) {
+        this.dataEmissao = dataEmissao;
     }
 
     public String getTipo() {
