@@ -14,13 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class NomeDao {
-
     public void inserir(NomeDto nomeDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-
             String sql = "INSERT INTO NOME VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
+
             statement.setString(1, nomeDto.getSurrogateKey());
             statement.setString(2, nomeDto.getTitulos());
             statement.setString(3, nomeDto.getNomes());
@@ -40,5 +39,4 @@ public class NomeDao {
             e.printStackTrace();
         }
     }
-
 }

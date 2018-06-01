@@ -14,7 +14,7 @@ public class IdentificadorDto {
     private int area;
     private String emissor;
     private String dataEmissao;
-    private String tipo;
+    private int tipo;
 
     public String getsurrogateKey() {
         return surrogateKey;
@@ -64,11 +64,11 @@ public class IdentificadorDto {
         this.dataEmissao = dataEmissao;
     }
 
-    public String getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 }

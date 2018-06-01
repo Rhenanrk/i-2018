@@ -14,13 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class IndividuoDao {
-
     public void inserir(IndividuoDto individuoDTO) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-
             String sql = "INSERT INTO INDIVIDUO VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(sql);
+
             statement.setString(1, individuoDTO.getsurrogateKey());
 
             statement.execute();

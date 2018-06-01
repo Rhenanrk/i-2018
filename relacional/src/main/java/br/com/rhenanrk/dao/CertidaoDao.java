@@ -6,23 +6,27 @@
 
 package br.com.rhenanrk.dao;
 
-import br.com.rhenanrk.dto.RepresentacaoDto;
+import br.com.rhenanrk.dto.CertidaoDto;
 import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RepresentacaoDao {
-    public void inserir(RepresentacaoDto representacaoDto) {
+public class CertidaoDao {
+    public void inserir(CertidaoDto certidaoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = "INSERT INTO REPRESENTACAO VALUES (?, ?, ?)";
+            String sql = "INSERT INTO CERTIDAO VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setString(1, representacaoDto.getsurrogateKey());
-            statement.setString(2, representacaoDto.getUtilizacao());
-            statement.setString(3, representacaoDto.getAlternativa());
+            statement.setString(1, certidaoDto.getIdCod());
+            statement.setString(2, certidaoDto.getSurrogateKey());
+            statement.setInt(3, certidaoDto.getTipo());
+            statement.setString(4, certidaoDto.getNomeCartorio());
+            statement.setInt(5, certidaoDto.getLivro());
+            statement.setInt(6, certidaoDto.getFolha());
+            statement.setInt(7, certidaoDto.getTermo());
 
             statement.execute();
             connection.close();

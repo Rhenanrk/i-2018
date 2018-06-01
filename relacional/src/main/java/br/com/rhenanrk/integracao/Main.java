@@ -6,12 +6,8 @@
 
 package br.com.rhenanrk.integracao;
 
-import br.com.rhenanrk.dao.IndividuoDao;
-import br.com.rhenanrk.dao.NomeDao;
-import br.com.rhenanrk.dao.RepresentacaoDao;
-import br.com.rhenanrk.dto.IndividuoDto;
-import br.com.rhenanrk.dto.NomeDto;
-import br.com.rhenanrk.dto.RepresentacaoDto;
+import br.com.rhenanrk.dao.*;
+import br.com.rhenanrk.dto.*;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -19,8 +15,8 @@ import java.util.UUID;
 public class Main {
 
     public static void main(String[] args) {
-        int opcao;
         Scanner leitor = new Scanner(System.in);
+        int opcao;
 
         do {
             System.out.print("1 - Inserir nova pessoa\n" +
@@ -30,16 +26,15 @@ public class Main {
             switch (opcao) {
                 case 1: // insere pessoa no banco de dados
 
-                    // inserindo na tabela individuo
+                    // criando individuo
                     IndividuoDto individuoDto = new IndividuoDto();
                     IndividuoDao individuoDao = new IndividuoDao();
                     UUID uuid = UUID.randomUUID();
                     String myRandom = uuid.toString();
                     String surrogateKey = myRandom.substring(0, 10);
                     individuoDto.setsurrogateKey(surrogateKey);
-                    individuoDao.inserir(individuoDto);
 
-                    // inserindo na tabela nome
+                    // criando nome
                     NomeDto nomeDto = new NomeDto();
                     NomeDao nomeDao = new NomeDao();
                     String titulos, nomes, sobrenomes, sufixos, inicioUso, fimUso;
@@ -83,9 +78,7 @@ public class Main {
                     fimUso = leitor.next();
                     nomeDto.setfimUso(fimUso);
 
-                    nomeDao.inserir(nomeDto);
-
-                    // inserindo na tabela representação
+                    // criando representação
                     RepresentacaoDto representacaoDto = new RepresentacaoDto();
                     RepresentacaoDao representacaoDao = new RepresentacaoDao();
                     String utilizacao, alternativa;
@@ -100,10 +93,94 @@ public class Main {
                     alternativa = leitor.next();
                     representacaoDto.setAlternativa(alternativa);
 
+                    // criando identificação
+                    IdentificadorDto identificadorDto = new IdentificadorDto();
+                    IdentificadorDao identificadorDao = new IdentificadorDao();
+                    String designacao, dataEmissao, emissor;
+                    int area, tipo;
+
+                    uuid = UUID.randomUUID();
+                    myRandom = uuid.toString();
+                    String idCod = myRandom.substring(0, 10);
+
+                    identificadorDto.setIdCod(idCod);
+                    identificadorDto.setsurrogateKey(surrogateKey);
+
+                    System.out.print("\nDesignacao: ");
+                    designacao = leitor.next();
+                    identificadorDto.setDesignacao(designacao);
+
+                    System.out.print("\nArea: ");
+                    area = leitor.nextInt();
+                    identificadorDto.setArea(area);
+
+                    System.out.print("\nEmissor: ");
+                    emissor = leitor.next();
+                    identificadorDto.setEmissor(emissor);
+
+                    System.out.print("\nData de emissao: ");
+                    dataEmissao = leitor.next();
+                    identificadorDto.setDataEmissao(dataEmissao);
+
+                    System.out.print("\nTipo: ");
+                    tipo = leitor.nextInt();
+                    identificadorDto.setTipo(tipo);
+
+                    // criando ctps
+
+                    CtpsDto ctpsDto = new CtpsDto();
+                    CtpsDao ctpsDao = new CtpsDao();
+                    String serie, estado;
+
+                    ctpsDto.setIdCod(idCod);
+                    ctpsDto.setsurrogateKey(surrogateKey);
+
+                    System.out.print("\nSerie: ");
+                    serie = leitor.next();
+                    ctpsDto.setSerie(serie);
+
+                    System.out.print("\nEstado: ");
+                    estado = leitor.next();
+                    ctpsDto.setEstado(estado);
+
+                    // criando certidão
+                    CertidaoDto certidaoDto = new CertidaoDto();
+                    CertidaoDao certidaoDao = new CertidaoDao();
+                    String nomeCartorio;
+                    int tipoCertidao, livro, folha, termo;
+
+                    certidaoDto.setIdCod(idCod);
+                    certidaoDto.setSurrogateKey(surrogateKey);
+
+                    System.out.print("\nTipo: ");
+                    tipoCertidao = leitor.nextInt();
+                    certidaoDto.setTipo(tipoCertidao);
+
+                    System.out.print("\nNome do Cartorio: ");
+                    nomeCartorio = leitor.next();
+                    certidaoDto.setNomeCartorio(nomeCartorio);
+
+                    System.out.print("\nLivro: ");
+                    livro = leitor.nextInt();
+                    certidaoDto.setLivro(livro);
+
+                    System.out.print("\nFolha: ");
+                    folha = leitor.nextInt();
+                    certidaoDto.setFolha(folha);
+
+                    System.out.print("\nTermo: ");
+                    termo = leitor.nextInt();
+                    certidaoDto.setTermo(termo);
+
+
+
+                    // inserindo dados nas tabelas
+                    individuoDao.inserir(individuoDto);
+                    nomeDao.inserir(nomeDto);
                     representacaoDao.inserir(representacaoDto);
-
-
-
+                    identificadorDao.inserir(identificadorDto);
+                    ctpsDao.inserir(ctpsDto);
+                    certidaoDao.inserir(certidaoDto);
 
                     break;
             }

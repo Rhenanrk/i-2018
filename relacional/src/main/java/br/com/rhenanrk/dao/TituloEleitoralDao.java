@@ -6,23 +6,24 @@
 
 package br.com.rhenanrk.dao;
 
-import br.com.rhenanrk.dto.RepresentacaoDto;
+import br.com.rhenanrk.dto.TituloEleitoralDto;
 import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RepresentacaoDao {
-    public void inserir(RepresentacaoDto representacaoDto) {
+public class TituloEleitoralDao {
+    public void inserir(TituloEleitoralDto tituloEleitoralDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = "INSERT INTO REPRESENTACAO VALUES (?, ?, ?)";
+            String sql = "INSERT INTO TITULOELEITORAL VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setString(1, representacaoDto.getsurrogateKey());
-            statement.setString(2, representacaoDto.getUtilizacao());
-            statement.setString(3, representacaoDto.getAlternativa());
+            statement.setString(1, tituloEleitoralDto.getIdCod());
+            statement.setString(2, tituloEleitoralDto.getSurrogateKey());
+            statement.setInt(3, tituloEleitoralDto.getSecao());
+            statement.setInt(4, tituloEleitoralDto.getZona());
 
             statement.execute();
             connection.close();
