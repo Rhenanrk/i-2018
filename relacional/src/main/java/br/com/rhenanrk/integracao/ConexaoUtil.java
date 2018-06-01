@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class ConexaoUtil {
     String serverName = "localhost"; // caminho do servidor
-    String myDataBase = "teste"; // nome do banco de dados
+    String myDataBase = "relacional"; // nome do banco de dados
     String url = "jdbc:mysql://" + serverName + "/" + myDataBase + "?autoReconnect=true&useSSL=false"; // construção da URL
     String username = "root"; // usuário do banco de dados
     String password = "12345"; // senha do banco de dados
@@ -24,6 +24,7 @@ public class ConexaoUtil {
 
     /**
      * Método responsável por testar se ja existe alguma conexão ao banco
+     * @return conexaoUtil
      */
     public static ConexaoUtil getInstance() {
         if (conexaoUtil == null) {
@@ -34,6 +35,10 @@ public class ConexaoUtil {
 
     /**
      * Método responsável por realizar a conexão;
+     *
+     * @return DriverManager.getConnection(url, username, password)
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
