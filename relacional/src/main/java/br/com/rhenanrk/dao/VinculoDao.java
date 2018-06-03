@@ -17,15 +17,13 @@ public class VinculoDao {
     public void inserir(VinculoDto vinculoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = "INSERT INTO TITULOELEITORAL VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO VINCULO VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setString(1, vinculoDto.getSurrogateKey());
-            statement.setString(2, vinculoDto.getIdCod());
-            statement.setString(3, vinculoDto.getNomePessoa());
-            statement.setInt(4, vinculoDto.getRelacionamento());
-            statement.setString(5, vinculoDto.getDataInicio());
-            statement.setString(6, vinculoDto.getDataFim());
+            statement.setString(1, vinculoDto.getSurrogateKeyPessoaVinculada());
+            statement.setInt(2, vinculoDto.getRelacionamento());
+            statement.setString(3, vinculoDto.getDataInicio());
+            statement.setString(4, vinculoDto.getDataFim());
 
             statement.execute();
             connection.close();

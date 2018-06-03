@@ -17,7 +17,7 @@ public class CtpsDao {
     public void inserir(CtpsDto ctpsDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = "INSERT INTO x VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO CTPS VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, ctpsDto.getIdCod());

@@ -8,35 +8,17 @@ package br.com.rhenanrk.dto;
 
 public class VinculoDto {
 
-    private String surrogateKey;
-    private String idCod;
-    private String nomePessoa;
+    private String surrogateKeyPessoaVinculada;
     private int relacionamento;
     private String dataInicio;
     private String dataFim;
 
-    public String getSurrogateKey() {
-        return surrogateKey;
+    public String getSurrogateKeyPessoaVinculada() {
+        return surrogateKeyPessoaVinculada;
     }
 
-    public void setSurrogateKey(String surrogateKey) {
-        this.surrogateKey = surrogateKey;
-    }
-
-    public String getIdCod() {
-        return idCod;
-    }
-
-    public void setIdCod(String idCod) {
-        this.idCod = idCod;
-    }
-
-    public String getNomePessoa() {
-        return nomePessoa;
-    }
-
-    public void setNomePessoa(String nomePessoa) {
-        this.nomePessoa = nomePessoa;
+    public void setSurrogateKeyPessoaVinculada(String surrogateKeyPessoaVinculada) {
+        this.surrogateKeyPessoaVinculada = surrogateKeyPessoaVinculada;
     }
 
     public int getRelacionamento() {
