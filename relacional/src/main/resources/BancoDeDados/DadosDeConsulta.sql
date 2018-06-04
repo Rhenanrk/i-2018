@@ -1,10 +1,85 @@
+/*
+Dados de referencia para comparação
+ */
+
+/*
+Tabeba de orgãos emissores de identificador
+ */
+CREATE TABLE IDENTIFICADORES (
+  codigo    VARCHAR(2) PRIMARY KEY,
+  descricao VARCHAR(100)
+);
+
+INSERT INTO IDENTIFICADORES VALUES
+  ('10', 'SSP'),
+  ('40', 'Organismos militares'),
+  ('41', 'Comando da Aeronáutica (Ministério da Aerotnáutica'),
+  ('42', 'Comando do Exército (Ministério do Exército)'),
+  ('43', 'Comando da Marinha (Ministério da Marinha)'),
+  ('44', 'Polícia Federal'),
+  ('60', 'Carteira de identidade classista'),
+  ('61', 'Conselho Regional de Administração'),
+  ('62', 'Conselho Regional de Assistência Social'),
+  ('63', 'Conselho Regional de Biblioteconomia'),
+  ('64', 'Conselho Regional de Contabilidade'),
+  ('65', 'Conselho Regional de Corretores Imóveis'),
+  ('66', 'Conselho Regional de Enfermagem'),
+  ('67', 'Conselho Regional de Engenharia'),
+  ('68', 'Conselho Regional de Estatística'),
+  ('69', 'Conselho Regional de Farmácia'),
+  ('70', 'Conselho Regional de Fisioterapi e Terapia Ocupacional'),
+  ('71', 'Conselho Regional de Medicina'),
+  ('72', 'Conselho Regional de Medicina Veterinária'),
+  ('73', 'Ordem dos Músicos do Brasil'),
+  ('74', 'Conselho Regional de Nutrição'),
+  ('75', 'Conselho Regional de Odontologia'),
+  ('76', 'Conselho Regional de Profissionais de Relações Públicas'),
+  ('77', 'Conselho Regional de Psicologia'),
+  ('78', 'Conselho Regional de Química'),
+  ('79', 'Conselho Regional de Representantes Comerciais'),
+  ('80', 'Ordem dos Advogados do Brasil'),
+  ('81', 'Outros Emissores'),
+  ('82', 'Documento Estrangeiro');
+
+/*
+Tabela com relacionamentos
+ */
+CREATE TABLE RELACIONAMENTOTIPO (
+  codigo    INT PRIMARY KEY,
+  descricao VARCHAR(30)
+);
+
+INSERT INTO RELACIONAMENTOTIPO VALUES
+  (7, 'Avó materna'),
+  (8, 'Avô materno'),
+  (22, 'Cônjuge/companheiro(a)'),
+  (23, 'Irmão'),
+  (24, 'Irmã'),
+  (25, 'Meio-irmão'),
+  (26, 'Meia-irmã'),
+  (27, 'Irmãos'),
+  (28, 'Criança'),
+  (29, 'Filha'),
+  (36, 'Avô paterna'),
+  (37, 'Avô paterno'),
+  (38, 'Tio materno'),
+  (40, 'Tio paterno'),
+  (41, 'Tia paterna'),
+  (189, 'Recém-nascido'),
+  (254, 'Pais'),
+  (262, 'Mãe adotiva'),
+  (263, 'Pai adotivo'),
+  (264, 'Responsável'),
+  (265, 'Coabitante'),
+  (939, 'Tia materna');
 
 /*
 Tabela de países
  */
 CREATE TABLE listapaises (
   idPais INT PRIMARY KEY,
-  nome   VARCHAR(50));
+  nome   VARCHAR(50)
+);
 
 INSERT INTO listapaises VALUES
   (101, 'Afeganistão'),
@@ -242,7 +317,8 @@ Tabela de estados brasileiros
  */
 CREATE TABLE LISTAESTADOS (
   idEstado VARCHAR(2) PRIMARY KEY,
-  nome   VARCHAR (25));
+  nome     VARCHAR(25)
+);
 
 INSERT INTO LISTAESTADOS VALUES
   ('AC', 'Acre'),
@@ -278,9 +354,10 @@ INSERT INTO LISTAESTADOS VALUES
 Tabela de municipios brasileiros
  */
 CREATE TABLE LISTAMUNICIPIOS (
-  idMunicipio VARCHAR(7) PRIMARY KEY ,
-  idEstado VARCHAR(2),
-  nome VARCHAR (32));
+  idMunicipio VARCHAR(7) PRIMARY KEY,
+  idEstado    VARCHAR(2),
+  nome        VARCHAR(32)
+);
 
 INSERT INTO LISTAMUNICIPIOS VALUES
   ('1100015', 'RO', 'Alta Floresta D''Oeste'),
