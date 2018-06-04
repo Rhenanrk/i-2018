@@ -158,4 +158,31 @@ public class VerificaDadosDao {
         }
         return nome_municipio;
     }
+
+    public boolean localizaIndividuo(String nomeCompleto, String nomeMae, String dataNascimento, String sexo) {
+        boolean localizador = true;
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM NOME, DADODEMOGRAFICO WHERE NOME.NOMECOMPLETO = ? AND DADODEMOGRAFICO.NOMEMAE = ?" +
+                    "AND DADODEMOGRAFICO.DATANASCIMENTO = ? AND DADODEMOGRAFICO.SEXO = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nomeCompleto);
+            statement.setString(2, nomeMae);
+            statement.setString(3, dataNascimento);
+            statement.setString(4, sexo);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                localizador = true;
+            } else
+                localizador = false;
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localizador;
+    }
 }
