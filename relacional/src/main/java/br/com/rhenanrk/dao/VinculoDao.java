@@ -21,7 +21,7 @@ public class VinculoDao {
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, vinculoDto.getSurrogateKeyPessoaVinculada());
-            statement.setInt(2, vinculoDto.getRelacionamento());
+            statement.setString(2, vinculoDto.getRelacionamento());
             statement.setString(3, vinculoDto.getDataInicio());
             statement.setString(4, vinculoDto.getDataFim());
 

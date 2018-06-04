@@ -11,6 +11,7 @@ import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DadoDemograficoDao {
@@ -47,5 +48,33 @@ public class DadoDemograficoDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public String localizaIndividuo(String nomeMae, String dataNascimento, String sexo) {
+        String localizado = null;
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM DADODEMOGRAFICO WHERE DATANASCIMENTO = ? AND NOMEMAE = ? AND SEXO = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nomeMae);
+            statement.setString(2, dataNascimento);
+            statement.setString(3, sexo);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String mae = resultSet.getString("nomeMae");
+                String nascimento = resultSet.getString("dataNascimento");
+                String sexo_ = resultSet.getString("sexo");
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localizado;
     }
 }

@@ -14,6 +14,79 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class VerificaDadosDao {
+
+    public String verificaSurrogateKey(String surrogateKey) {
+        String SurrogateKey = null;
+
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM INDIVIDUO WHERE SURROGATEKEY = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, surrogateKey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                SurrogateKey = resultSet.getString("surrogateKey");
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return SurrogateKey;
+    }
+
+    public String verificaOrgaoEmissor(String orgaoEmissor) {
+        String nome_orgaoEmissor = null;
+
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM IDENTIFICADORES WHERE DESCRICAO = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, orgaoEmissor);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                nome_orgaoEmissor = resultSet.getString("descricao");
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return nome_orgaoEmissor;
+    }
+
+    public String verificaRelacionamento(String relacionamento) {
+        String tipo_relacionamento = null;
+
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM RELACIONAMENTOTIPO WHERE DESCRICAO = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, relacionamento);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                tipo_relacionamento = resultSet.getString("descricao");
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return tipo_relacionamento;
+    }
+
     public String verificaPais(String pais) {
         String nome_pais = null;
 

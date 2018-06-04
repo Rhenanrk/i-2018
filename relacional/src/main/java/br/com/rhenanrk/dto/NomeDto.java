@@ -14,6 +14,7 @@ public class NomeDto {
     private String nomes;
     private String sobrenomes;
     private String sufixos;
+    private String nomeCompleto;
     private int preferido;
     private int usoCondicional;
     private int uso;
@@ -60,6 +61,14 @@ public class NomeDto {
         this.sufixos = sufixos;
     }
 
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
     public int getPreferido() {
         return preferido;
     }
@@ -84,19 +93,19 @@ public class NomeDto {
         this.uso = uso;
     }
 
-    public String getinicioUso() {
+    public String getInicioUso() {
         return inicioUso;
     }
 
-    public void setinicioUso(String inicioUso) {
+    public void setInicioUso(String inicioUso) {
         this.inicioUso = inicioUso;
     }
 
-    public String getfimUso() {
+    public String getFimUso() {
         return fimUso;
     }
 
-    public void setfimUso(String fimUso) {
+    public void setFimUso(String fimUso) {
         this.fimUso = fimUso;
     }
 }

@@ -9,7 +9,7 @@ package br.com.rhenanrk.dto;
 public class VinculoDto {
 
     private String surrogateKeyPessoaVinculada;
-    private int relacionamento;
+    private String relacionamento;
     private String dataInicio;
     private String dataFim;
 
@@ -21,11 +21,11 @@ public class VinculoDto {
         this.surrogateKeyPessoaVinculada = surrogateKeyPessoaVinculada;
     }
 
-    public int getRelacionamento() {
+    public String getRelacionamento() {
         return relacionamento;
     }
 
-    public void setRelacionamento(int relacionamento) {
+    public void setRelacionamento(String relacionamento) {
         this.relacionamento = relacionamento;
     }
 

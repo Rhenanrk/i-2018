@@ -64,11 +64,11 @@ public class IdentificadorDto {
         this.dataEmissao = dataEmissao;
     }
 
-    public int getTipo() {
+    public int  getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(int  tipo) {
         this.tipo = tipo;
     }
 }
