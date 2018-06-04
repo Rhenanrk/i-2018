@@ -172,7 +172,7 @@ public class VerificaDadosDao {
             statement.setString(3, dataNascimento);
             statement.setString(4, sexo);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 localizador = true;
             } else
                 localizador = false;
@@ -184,5 +184,31 @@ public class VerificaDadosDao {
             e.printStackTrace();
         }
         return localizador;
+    }
+
+    public String retornaSurrogateKey(String nomeCompleto, String nomeMae, String dataNascimento, String sexo) {
+        String surrogateKey = null;
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT NOME.SURROGATEKEY FROM NOME, DADODEMOGRAFICO WHERE NOME.NOMECOMPLETO = ? AND DADODEMOGRAFICO.NOMEMAE = ?" +
+                    "AND DADODEMOGRAFICO.DATANASCIMENTO = ? AND DADODEMOGRAFICO.SEXO = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nomeCompleto);
+            statement.setString(2, nomeMae);
+            statement.setString(3, dataNascimento);
+            statement.setString(4, sexo);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                surrogateKey = resultSet.getString("surrogateKey");
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return surrogateKey;
     }
 }

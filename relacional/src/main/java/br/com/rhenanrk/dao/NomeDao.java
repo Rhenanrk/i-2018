@@ -42,18 +42,26 @@ public class NomeDao {
         }
     }
 
-    public String localizaIndividuo(String nomeCompleto) {
-        String localizado = null;
+    public void localizaIndividuo(String surrogatekey) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
-            String sql = "SELECT * FROM NOME WHERE NOMECOMPLETO = ?";
+            String sql = "SELECT * FROM NOME WHERE SURROGATEKEY = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, nomeCompleto);
+            statement.setString(1, surrogatekey);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 String nome = resultSet.getString("nomeCompleto");
+                int preferido = resultSet.getInt("preferido");
+                int usoCondicional = resultSet.getInt("usoCondicional");
+                int uso = resultSet.getInt("uso");
+                String inicioUso = resultSet.getString("inicioUso");
+                String fimUso = resultSet.getString("fimUso");
+
+                System.out.println("\nNome completo: " + nome +
+                        "\nPreferido: " + preferido + "\nCOndicao de uso: " + usoCondicional + "\nUso: " + uso +
+                        "\nInicio do uso: " + inicioUso + "\nFim do uso: " + fimUso);
             }
 
             connection.close();
@@ -62,6 +70,5 @@ public class NomeDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return localizado;
     }
 }

@@ -23,9 +23,11 @@ public class Main {
                 Scanner leitorNumerico = new Scanner(System.in);
                 VerificaDadosDao verificaDadosDao = new VerificaDadosDao();
 
-
                 System.out.print("\n\n1 - Inserir nova pessoa\n" +
                         "2 - Localizar pessoa\n" +
+                        "3 - Atualizar pessoa\n" + // não implementado
+                        "4 - Consultar pessoa\n" + // não implementado
+                        "0 - Sair\n" +
                         "Opcao: ");
                 opcao = leitorNumerico.nextInt();
 
@@ -36,12 +38,35 @@ public class Main {
                     case 2:
                         localizaPessoa(leitor, verificaDadosDao);
                         break;
+                    case 4:
+                        consultaPessoa(leitor, verificaDadosDao);
+                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nVocê digitou algo irregular, vamos começar de novo");
             }
         } while (opcao != 0);
+    }
 
+    private static void consultaPessoa(Scanner leitor, VerificaDadosDao verificaDadosDao) {
+        String nome, nomeMae, dataNascimento, sexo;
+        System.out.print("Informe o nome completo do individuo: ");
+        nome = leitor.nextLine();
+        System.out.print("Informe o nome da mae do individuo: ");
+        nomeMae = leitor.nextLine();
+        System.out.print("Informe a data de nascimento do individuo: ");
+        dataNascimento = leitor.nextLine();
+        System.out.print("Informe o sexo do individuo: \n" +
+                "(M - Masculino, F - Feminino, I - Intersexo ou indeterminado, N - Não declarado)\n" +
+                "Opcao: ");
+        sexo = leitor.nextLine();
+
+        if (verificaDadosDao.localizaIndividuo(nome, nomeMae, dataNascimento, sexo)) {
+            // verificaDadosDao.retornaSurrogateKey(nome, nomeMae, dataNascimento, sexo)
+            NomeDao nomeDao = new NomeDao();
+            nomeDao.localizaIndividuo(verificaDadosDao.retornaSurrogateKey(nome, nomeMae, dataNascimento, sexo));
+        } else
+            System.out.println("Pessoa nao localizada na base de dados!");
     }
 
 
