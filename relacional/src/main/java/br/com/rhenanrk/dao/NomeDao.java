@@ -42,6 +42,34 @@ public class NomeDao {
         }
     }
 
+    public void atualizaNome(String surrogateKey, NomeDto nomeDto) {
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "UPDATE NOME SET titulos = ?, nomes = ?, sobrenomes = ?, sufixos = ?, nomeCompleto = ?, " +
+                    "preferido = ?, usoCondicional = ?, uso = ?, inicioUso = ?, fimUso = ? WHERE SURROGATEKEY = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, nomeDto.getTitulos());
+            statement.setString(2, nomeDto.getNomes());
+            statement.setString(3, nomeDto.getSobrenomes());
+            statement.setString(4, nomeDto.getSufixos());
+            statement.setString(5, nomeDto.getNomeCompleto());
+            statement.setInt(6, nomeDto.getPreferido());
+            statement.setInt(7, nomeDto.getUsoCondicional());
+            statement.setInt(8, nomeDto.getUso());
+            statement.setString(9, nomeDto.getInicioUso());
+            statement.setString(10, nomeDto.getFimUso());
+            statement.setString(11, surrogateKey);
+
+            statement.execute();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public NomeDto consultaNome(String surrogatekey) {
         NomeDto nomeDto = new NomeDto();
         try {

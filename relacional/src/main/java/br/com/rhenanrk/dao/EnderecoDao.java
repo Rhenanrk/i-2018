@@ -45,6 +45,38 @@ public class EnderecoDao {
         }
     }
 
+    public void atualizaEndereco(String surrogateKey, EnderecoDto enderecoDto) {
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "UPDATE ENDERECO SET tipo = ?, endereco = ?, bairro = ?, distrito = ?, municipio = ?, " +
+                    "estado = ?, cep = ?, caixaPostal = ?, pais = ?, dataInicio = ?, acuraciaInicio = ?, dataFim = ?, " +
+                    "acuraciaFim = ? WHERE SURROGATEKEY = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, enderecoDto.getTipo());
+            statement.setString(2, enderecoDto.getEndereco());
+            statement.setString(3, enderecoDto.getBairro());
+            statement.setString(4, enderecoDto.getDistrito());
+            statement.setString(5, enderecoDto.getMunicipio());
+            statement.setString(6, enderecoDto.getEstado());
+            statement.setString(7, enderecoDto.getCep());
+            statement.setString(8, enderecoDto.getCaixaPostal());
+            statement.setString(9, enderecoDto.getPais());
+            statement.setString(10, enderecoDto.getDataInicio());
+            statement.setString(11, enderecoDto.getAcuraciaInicio());
+            statement.setString(12, enderecoDto.getDataFim());
+            statement.setString(13, enderecoDto.getAcuraciaFim());
+            statement.setString(14, surrogateKey);
+
+            statement.execute();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public EnderecoDto consultaEndereco(String surrogatekey) {
         EnderecoDto enderecoDto = new EnderecoDto();
         try {

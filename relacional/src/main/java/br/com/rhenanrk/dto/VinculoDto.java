@@ -8,10 +8,19 @@ package br.com.rhenanrk.dto;
 
 public class VinculoDto {
 
+    private String surrogateKey;
     private String surrogateKeyPessoaVinculada;
     private String relacionamento;
     private String dataInicio;
     private String dataFim;
+
+    public String getSurrogateKey() {
+        return surrogateKey;
+    }
+
+    public void setSurrogateKey(String surrogateKey) {
+        this.surrogateKey = surrogateKey;
+    }
 
     public String getSurrogateKeyPessoaVinculada() {
         return surrogateKeyPessoaVinculada;

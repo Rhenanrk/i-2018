@@ -50,6 +50,44 @@ public class DadoDemograficoDao {
         }
     }
 
+    public void atualizadaDados(String surrogateKey, DadoDemograficoDto dadoDemograficoDto) {
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "UPDATE DADODEMOGRAFICO SET dataNascimento = ?, nascimentoAcuracia = ?, dataObito = ?," +
+                    " obitoAcuracia = ?, fonteNotificacaoObito = ?, sexo = ?, nomeMae = ?, nomePai = ?, " +
+                    "situacaoFamiliar = ?, racaCor = ?, comentario = ?, nascimentoPluralidade = ?, nascimentoOrdem = ?," +
+                    " nascimentoSeguinte = ?, pais = ?, estado = ?, municipio = ?, dataEntradaPais  = ? WHERE SURROGATEKEY = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, dadoDemograficoDto.getDataNascimento());
+            statement.setString(2, dadoDemograficoDto.getNascimentoAcuracia());
+            statement.setString(3, dadoDemograficoDto.getDataObito());
+            statement.setString(4, dadoDemograficoDto.getObitoAcuracia());
+            statement.setInt(5, dadoDemograficoDto.getFonteNotificacaoObito());
+            statement.setString(6, dadoDemograficoDto.getSexo());
+            statement.setString(7, dadoDemograficoDto.getNomeMae());
+            statement.setString(8, dadoDemograficoDto.getNomePai());
+            statement.setInt(9, dadoDemograficoDto.getSituacaoFamiliar());
+            statement.setInt(10, dadoDemograficoDto.getRacaCor());
+            statement.setString(11, dadoDemograficoDto.getComentario());
+            statement.setInt(12, dadoDemograficoDto.getNascimentoPluralidade());
+            statement.setInt(13, dadoDemograficoDto.getNascimentoOrdem());
+            statement.setInt(14, dadoDemograficoDto.getNascimentoSeguimento());
+            statement.setString(15, dadoDemograficoDto.getPais());
+            statement.setString(16, dadoDemograficoDto.getEstado());
+            statement.setString(17, dadoDemograficoDto.getMunicipio());
+            statement.setString(18, dadoDemograficoDto.getDataEntradaPais());
+            statement.setString(19, surrogateKey);
+
+            statement.execute();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public DadoDemograficoDto consultaDadoDemografico(String surrogatekey) {
         DadoDemograficoDto dadoDemograficoDto = new DadoDemograficoDto();
         try {
