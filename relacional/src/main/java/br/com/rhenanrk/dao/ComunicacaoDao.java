@@ -11,6 +11,7 @@ import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ComunicacaoDao {
@@ -33,5 +34,31 @@ public class ComunicacaoDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public ComunicacaoDto consultaComunicacao(String surrogatekey) {
+        ComunicacaoDto comunicacaoDto = new ComunicacaoDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM COMUNICACAO WHERE SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                comunicacaoDto.setMeio(resultSet.getInt("meio"));
+                comunicacaoDto.setDetalhe(resultSet.getString("detalhe"));
+                comunicacaoDto.setPreferencia(resultSet.getInt("preferencia"));
+                comunicacaoDto.setUtilizacao(resultSet.getInt("utilizacao"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return comunicacaoDto;
     }
 }

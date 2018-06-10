@@ -49,4 +49,44 @@ public class DadoDemograficoDao {
             e.printStackTrace();
         }
     }
+
+    public DadoDemograficoDto consultaDadoDemografico(String surrogatekey) {
+        DadoDemograficoDto dadoDemograficoDto = new DadoDemograficoDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM DADODEMOGRAFICO WHERE SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                dadoDemograficoDto.setDataNascimento(resultSet.getString("dataNascimento"));
+                dadoDemograficoDto.setNascimentoAcuracia(resultSet.getString("nascimentoAcuracia"));
+                dadoDemograficoDto.setDataObito(resultSet.getString("dataObito"));
+                dadoDemograficoDto.setObitoAcuracia(resultSet.getString("obitoAcuracia"));
+                dadoDemograficoDto.setFonteNotificacaoObito(resultSet.getInt("fonteNotificacaoObito"));
+                dadoDemograficoDto.setSexo(resultSet.getString("sexo"));
+                dadoDemograficoDto.setNomeMae(resultSet.getString("nomeMae"));
+                dadoDemograficoDto.setNomePai(resultSet.getString("nomePai"));
+                dadoDemograficoDto.setSituacaoFamiliar(resultSet.getInt("situacaoFamiliar"));
+                dadoDemograficoDto.setRacaCor(resultSet.getInt("racaCor"));
+                dadoDemograficoDto.setComentario(resultSet.getString("comentario"));
+                dadoDemograficoDto.setNascimentoPluralidade(resultSet.getInt("nascimentoPluralidade"));
+                dadoDemograficoDto.setNascimentoOrdem(resultSet.getInt("nascimentoOrdem"));
+                dadoDemograficoDto.setNascimentoSeguimento(resultSet.getInt("nascimentoSeguinte"));
+                dadoDemograficoDto.setPais(resultSet.getString("pais"));
+                dadoDemograficoDto.setEstado(resultSet.getString("estado"));
+                dadoDemograficoDto.setMunicipio(resultSet.getString("municipio"));
+                dadoDemograficoDto.setDataEntradaPais(resultSet.getString("dataEntradaPais"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return dadoDemograficoDto;
+    }
 }

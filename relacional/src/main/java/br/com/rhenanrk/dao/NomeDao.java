@@ -42,7 +42,8 @@ public class NomeDao {
         }
     }
 
-    public void localizaIndividuo(String surrogatekey) {
+    public NomeDto consultaNome(String surrogatekey) {
+        NomeDto nomeDto = new NomeDto();
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sql = "SELECT * FROM NOME WHERE SURROGATEKEY = ?";
@@ -52,16 +53,12 @@ public class NomeDao {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String nome = resultSet.getString("nomeCompleto");
-                int preferido = resultSet.getInt("preferido");
-                int usoCondicional = resultSet.getInt("usoCondicional");
-                int uso = resultSet.getInt("uso");
-                String inicioUso = resultSet.getString("inicioUso");
-                String fimUso = resultSet.getString("fimUso");
-
-                System.out.println("\nNome completo: " + nome +
-                        "\nPreferido: " + preferido + "\nCOndicao de uso: " + usoCondicional + "\nUso: " + uso +
-                        "\nInicio do uso: " + inicioUso + "\nFim do uso: " + fimUso);
+                nomeDto.setNomeCompleto(resultSet.getString("nomeCompleto"));
+                nomeDto.setPreferido(resultSet.getInt("preferido"));
+                nomeDto.setUsoCondicional(resultSet.getInt("usoCondicional"));
+                nomeDto.setUso(resultSet.getInt("uso"));
+                nomeDto.setInicioUso(resultSet.getString("inicioUso"));
+                nomeDto.setFimUso(resultSet.getString("fimUso"));
             }
 
             connection.close();
@@ -70,5 +67,6 @@ public class NomeDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return nomeDto;
     }
 }

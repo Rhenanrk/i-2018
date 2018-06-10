@@ -23,7 +23,7 @@ public class Main {
                 Scanner leitorNumerico = new Scanner(System.in);
                 VerificaDadosDao verificaDadosDao = new VerificaDadosDao();
 
-                System.out.print("\n\n1 - Inserir nova pessoa\n" +
+                System.out.print("\n1 - Inserir nova pessoa\n" +
                         "2 - Localizar pessoa\n" +
                         "3 - Atualizar pessoa\n" + // não implementado
                         "4 - Consultar pessoa\n" + // não implementado
@@ -47,28 +47,6 @@ public class Main {
             }
         } while (opcao != 0);
     }
-
-    private static void consultaPessoa(Scanner leitor, VerificaDadosDao verificaDadosDao) {
-        String nome, nomeMae, dataNascimento, sexo;
-        System.out.print("Informe o nome completo do individuo: ");
-        nome = leitor.nextLine();
-        System.out.print("Informe o nome da mae do individuo: ");
-        nomeMae = leitor.nextLine();
-        System.out.print("Informe a data de nascimento do individuo: ");
-        dataNascimento = leitor.nextLine();
-        System.out.print("Informe o sexo do individuo: \n" +
-                "(M - Masculino, F - Feminino, I - Intersexo ou indeterminado, N - Não declarado)\n" +
-                "Opcao: ");
-        sexo = leitor.nextLine();
-
-        if (verificaDadosDao.localizaIndividuo(nome, nomeMae, dataNascimento, sexo)) {
-            // verificaDadosDao.retornaSurrogateKey(nome, nomeMae, dataNascimento, sexo)
-            NomeDao nomeDao = new NomeDao();
-            nomeDao.localizaIndividuo(verificaDadosDao.retornaSurrogateKey(nome, nomeMae, dataNascimento, sexo));
-        } else
-            System.out.println("Pessoa nao localizada na base de dados!");
-    }
-
 
     private static void criaIndividuo(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao) {
         // Verifica se individuo ja existe
@@ -876,4 +854,146 @@ public class Main {
         else
             System.out.println("Pessoa nao localizada na base de dados!");
     }
+
+
+    private static void consultaPessoa(Scanner leitor, VerificaDadosDao verificaDadosDao) {
+        String nome, nomeMae, dataNascimento, sexo;
+        System.out.print("Informe o nome completo do individuo: ");
+        nome = leitor.nextLine();
+        System.out.print("Informe o nome da mae do individuo: ");
+        nomeMae = leitor.nextLine();
+        System.out.print("Informe a data de nascimento do individuo: ");
+        dataNascimento = leitor.nextLine();
+        System.out.print("Informe o sexo do individuo: \n" +
+                "(M - Masculino, F - Feminino, I - Intersexo ou indeterminado, N - Não declarado)\n" +
+                "Opcao: ");
+        sexo = leitor.nextLine();
+
+        if (verificaDadosDao.localizaIndividuo(nome, nomeMae, dataNascimento, sexo)) {
+            NomeDao nomeDao = new NomeDao();
+            NomeDto nomeDto;
+            nomeDto = nomeDao.consultaNome(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados de nome ====>");
+            System.out.println("Nome completo: " + nomeDto.getNomeCompleto());
+            System.out.println("Preferido: " + nomeDto.getPreferido());
+            System.out.println("Uso condicional: " + nomeDto.getUsoCondicional());
+            System.out.println("Uso: " + nomeDto.getUso());
+            System.out.println("Inicio do uso deste nome: " + nomeDto.getInicioUso());
+            System.out.println("Fim do uso deste nome: " + nomeDto.getFimUso());
+
+            IdentificadorDao identificadorDao = new IdentificadorDao();
+            IdentificadorDto identificadorDto;
+            identificadorDto = identificadorDao.consultaIdentificador(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados de identificacao ====>");
+            System.out.println("Designacao: " + identificadorDto.getDesignacao());
+            System.out.println("Area: " + identificadorDto.getArea());
+            System.out.println("Emissor: " + identificadorDto.getEmissor());
+            System.out.println("Data de emissao: " + identificadorDto.getDataEmissao());
+            System.out.println("Tipo de identificador: " + identificadorDto.getTipo());
+
+            // (1 - CTPS, 2 - Certidao, 3 - Titulo Eleitoral, 4 - Outro identificador)
+            switch (identificadorDto.getTipo()) {
+                case 1:
+                    CtpsDao ctpsDao = new CtpsDao();
+                    CtpsDto ctpsDto;
+                    ctpsDto = ctpsDao.consultaCtps(verificaDadosDao.retornaSurrogateKey(nome,
+                            nomeMae, dataNascimento, sexo), identificadorDto.getIdCod());
+                    System.out.println("\n<==== Dados de carteira de trabalho e previdencia social ====>");
+                    System.out.println("Serie: " + ctpsDto.getSerie());
+                    System.out.println("Estado: " + ctpsDto.getEstado());
+                    break;
+
+                case 2:
+                    CertidaoDao certidaoDao = new CertidaoDao();
+                    CertidaoDto certidaoDto;
+                    certidaoDto = certidaoDao.consultaCertidao(verificaDadosDao.retornaSurrogateKey(nome,
+                            nomeMae, dataNascimento, sexo), identificadorDto.getIdCod());
+                    System.out.println("\n<==== Dados de certidao ====>");
+                    System.out.println("Tipo de certidao: " + certidaoDto.getTipo());
+                    System.out.println("Nome do cartorio: " + certidaoDto.getNomeCartorio());
+                    System.out.println("Livro: " + certidaoDto.getLivro());
+                    System.out.println("Folha: " + certidaoDto.getFolha());
+                    System.out.println("Termo: " + certidaoDto.getTermo());
+                    break;
+
+                case 3:
+                    TituloEleitoralDao tituloEleitoralDao = new TituloEleitoralDao();
+                    TituloEleitoralDto tituloEleitoralDto;
+                    tituloEleitoralDto = tituloEleitoralDao.consultaTituloEleitoral(verificaDadosDao.retornaSurrogateKey(nome,
+                            nomeMae, dataNascimento, sexo), identificadorDto.getIdCod());
+                    System.out.println("\n<==== Dados de titulo eleitoral ====>");
+                    System.out.println("Secao: " + tituloEleitoralDto.getSecao());
+                    System.out.println("Zona: " + tituloEleitoralDto.getZona());
+                    break;
+            }
+
+            DadoDemograficoDao dadoDemograficoDao = new DadoDemograficoDao();
+            DadoDemograficoDto dadoDemograficoDto;
+            dadoDemograficoDto = dadoDemograficoDao.consultaDadoDemografico(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados demograficos ====>");
+            System.out.println("Data de nascimento: " + dadoDemograficoDto.getDataNascimento());
+            System.out.println("Acuracia da data de nascimento: " + dadoDemograficoDto.getNascimentoAcuracia());
+            System.out.println("Data de obito: " + dadoDemograficoDto.getDataObito());
+            System.out.println("Acuracia da data de obito: " + dadoDemograficoDto.getObitoAcuracia());
+            System.out.println("Fonte da notificacao do obito: " + dadoDemograficoDto.getFonteNotificacaoObito());
+            System.out.println("Sexo: " + dadoDemograficoDto.getSexo());
+            System.out.println("Nome da mae: " + dadoDemograficoDto.getNomeMae());
+            System.out.println("Nome do pai: " + dadoDemograficoDto.getNomePai());
+            System.out.println("Situacao familiar: " + dadoDemograficoDto.getSituacaoFamiliar());
+            System.out.println("Raca/cor: " + dadoDemograficoDto.getRacaCor());
+            System.out.println("Comentario: " + dadoDemograficoDto.getComentario());
+            System.out.println("Nascimento pluralidade: " + dadoDemograficoDto.getNascimentoPluralidade());
+            System.out.println("Nascimento ordem: " + dadoDemograficoDto.getNascimentoOrdem());
+            System.out.println("Nascimento seguimento: " + dadoDemograficoDto.getNascimentoSeguimento());
+            System.out.println("Pais de nascimento: " + dadoDemograficoDto.getPais());
+            System.out.println("Estado de nascimento: " + dadoDemograficoDto.getEstado());
+            System.out.println("Municipio de nascimento: " + dadoDemograficoDto.getMunicipio());
+            System.out.println("Data de entrada no Brasil: " + dadoDemograficoDto.getDataEntradaPais());
+
+            ComunicacaoDao comunicacaoDao = new ComunicacaoDao();
+            ComunicacaoDto comunicacaoDto;
+            comunicacaoDto = comunicacaoDao.consultaComunicacao(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados de comunicacao ====>");
+            System.out.println("Meio de comunicacao: " + comunicacaoDto.getMeio());
+            System.out.println("Detalhe do meio: " + comunicacaoDto.getDetalhe());
+            System.out.println("Preferencia da comunicação: " + comunicacaoDto.getPreferencia());
+            System.out.println("Utilizacao deste meio de comunicacao: " + comunicacaoDto.getUtilizacao());
+
+            VinculoDao vinculoDao = new VinculoDao();
+            VinculoDto vinculoDto;
+            vinculoDto = vinculoDao.consultaVinculo(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados de vinculo ====>");
+            System.out.println("Chave da pessoa vinculada: " + vinculoDto.getSurrogateKeyPessoaVinculada());
+            System.out.println("Tipo de relacionamento: " + vinculoDto.getRelacionamento());
+            System.out.println("Data de inicio do relacionamento: " + vinculoDto.getDataInicio());
+            System.out.println("Data de fim do relacionamento: " + vinculoDto.getDataFim());
+
+            EnderecoDao enderecoDao = new EnderecoDao();
+            EnderecoDto enderecoDto;
+            enderecoDto = enderecoDao.consultaEndereco(verificaDadosDao.retornaSurrogateKey(nome,
+                    nomeMae, dataNascimento, sexo));
+            System.out.println("\n<==== Dados de endereco ====>");
+            System.out.println("Tipo de endereco: " + enderecoDto.getTipo());
+            System.out.println("Endereco: " + enderecoDto.getEndereco());
+            System.out.println("Bairro: " + enderecoDto.getBairro());
+            System.out.println("Distrito: " + enderecoDto.getDistrito());
+            System.out.println("Municipio: " + enderecoDto.getMunicipio());
+            System.out.println("Estado: " + enderecoDto.getEstado());
+            System.out.println("CEP: " + enderecoDto.getCep());
+            System.out.println("Caixa postal: " + enderecoDto.getCaixaPostal());
+            System.out.println("Pais: " + enderecoDto.getPais());
+            System.out.println("Data de inicio de residencia no pais: " + enderecoDto.getDataInicio());
+            System.out.println("Acuracia da data de inicio: " + enderecoDto.getAcuraciaInicio());
+            System.out.println("Data de saida do pais: " + enderecoDto.getDataFim());
+            System.out.println("Acuracia da data de saida do pais: " + enderecoDto.getAcuraciaFim());
+
+        } else
+            System.out.println("Pessoa nao localizada na base de dados!");
+    }
+
 }

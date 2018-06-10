@@ -11,6 +11,7 @@ import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CertidaoDao {
@@ -35,5 +36,33 @@ public class CertidaoDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public CertidaoDto consultaCertidao(String surrogatekey, String idCod) {
+        CertidaoDto certidaoDto = new CertidaoDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM CERTIDAO WHERE IDCOD = ? AND SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, idCod);
+            statement.setString(2, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                certidaoDto.setTipo(resultSet.getInt("tipo"));
+                certidaoDto.setNomeCartorio(resultSet.getString("nomeCartorio"));
+                certidaoDto.setLivro(resultSet.getInt("livro"));
+                certidaoDto.setFolha(resultSet.getInt("folha"));
+                certidaoDto.setTermo(resultSet.getInt("termo"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return certidaoDto;
     }
 }

@@ -114,6 +114,7 @@ CREATE TABLE endereco (
 
 /*Criando tabela de vínculo*/
 CREATE TABLE vinculo (
+  surrogateKey                VARCHAR(10),
   surrogateKeyPessoaVinculada VARCHAR(10),
   relacionamento              INT,
   dataInicio                  VARCHAR(12),

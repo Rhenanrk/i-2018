@@ -44,4 +44,39 @@ public class EnderecoDao {
             e.printStackTrace();
         }
     }
+
+    public EnderecoDto consultaEndereco(String surrogatekey) {
+        EnderecoDto enderecoDto = new EnderecoDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM ENDERECO WHERE SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                enderecoDto.setTipo(resultSet.getInt("tipo"));
+                enderecoDto.setEndereco(resultSet.getString("endereco"));
+                enderecoDto.setBairro(resultSet.getString("bairro"));
+                enderecoDto.setDistrito(resultSet.getString("distrito"));
+                enderecoDto.setMunicipio(resultSet.getString("municipio"));
+                enderecoDto.setEstado(resultSet.getString("estado"));
+                enderecoDto.setCep(resultSet.getString("cep"));
+                enderecoDto.setCaixaPostal(resultSet.getString("caixaPostal"));
+                enderecoDto.setPais(resultSet.getString("pais"));
+                enderecoDto.setDataInicio(resultSet.getString("dataInicio"));
+                enderecoDto.setAcuraciaInicio(resultSet.getString("acuraciaInicio"));
+                enderecoDto.setDataFim(resultSet.getString("dataFim"));
+                enderecoDto.setAcuraciaFim(resultSet.getString("acuraciaFim"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return enderecoDto;
+    }
 }

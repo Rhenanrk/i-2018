@@ -11,6 +11,7 @@ import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class IdentificadorDao {
@@ -35,5 +36,33 @@ public class IdentificadorDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public IdentificadorDto consultaIdentificador(String surrogatekey) {
+        IdentificadorDto identificadorDto = new IdentificadorDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM IDENTIFICADOR WHERE SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                identificadorDto.setIdCod(resultSet.getString("idCod"));
+                identificadorDto.setDesignacao(resultSet.getString("designacao"));
+                identificadorDto.setArea(resultSet.getInt("area"));
+                identificadorDto.setEmissor(resultSet.getString("emissor"));
+                identificadorDto.setDataEmissao(resultSet.getString("dataEmissao"));
+                identificadorDto.setTipo(resultSet.getInt("tipo"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return identificadorDto;
     }
 }

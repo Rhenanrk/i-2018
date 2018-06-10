@@ -11,6 +11,7 @@ import br.com.rhenanrk.integracao.ConexaoUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CtpsDao {
@@ -32,5 +33,30 @@ public class CtpsDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public CtpsDto consultaCtps(String surrogatekey, String idCod) {
+        CtpsDto ctpsDto = new CtpsDto();
+        try {
+            Connection connection = ConexaoUtil.getInstance().getConnection();
+            String sql = "SELECT * FROM CTPS WHERE IDCOD = ? AND SURROGATEKEY = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, idCod);
+            statement.setString(2, surrogatekey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ctpsDto.setSerie(resultSet.getString("serie"));
+                ctpsDto.setEstado(resultSet.getString("estado"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ctpsDto;
     }
 }
