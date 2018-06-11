@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NomeDao {
-    public void inserir(NomeDto nomeDto) {
+    public boolean inserir(NomeDto nomeDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sql = "INSERT INTO NOME VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,14 +35,17 @@ public class NomeDao {
 
             statement.execute();
             connection.close();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void atualizaNome(String surrogateKey, NomeDto nomeDto) {
+    public boolean atualizaNome(String surrogateKey, NomeDto nomeDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sql = "UPDATE NOME SET titulos = ?, nomes = ?, sobrenomes = ?, sufixos = ?, nomeCompleto = ?, " +
@@ -63,10 +66,13 @@ public class NomeDao {
 
             statement.execute();
             connection.close();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class IndividuoDao {
-    public void inserir(IndividuoDto individuoDTO) {
+    public boolean inserir(IndividuoDto individuoDTO) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
             String sql = "INSERT INTO INDIVIDUO VALUES (?)";
@@ -24,10 +24,13 @@ public class IndividuoDao {
 
             statement.execute();
             connection.close();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
