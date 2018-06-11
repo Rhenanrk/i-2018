@@ -6,6 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
+/**
+ * Classe responsável por abstrair o objeto Identificador.
+ */
 public class IdentificadorDto {
 
     private String surrogateKey;

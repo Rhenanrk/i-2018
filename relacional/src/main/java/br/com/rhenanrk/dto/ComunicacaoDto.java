@@ -6,6 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
+/**
+ * Classe responsável por abstrair o objeto Comunicação.
+ */
 public class ComunicacaoDto {
 
     private String surrogateKey;

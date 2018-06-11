@@ -6,8 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
-import java.util.Date;
-
+/**
+ * Classe responsável por abstrair o objeto Nome.
+ */
 public class NomeDto {
     private String surrogateKey;
     private String titulos;

@@ -13,9 +13,22 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
-
+/**
+ * Classe principal da aplicação.
+ * A partir daqui, todas as operações são executadas.
+ */
 public class Main {
 
+    /**
+     * Método principal do programa.
+     * O usuário deve escolher entre 1 -inserir um novo usuário (as informações do novo usuário serão requisitadas,
+     * 2- localizar um usuário, onde será requisitado alguns parametros de identificação (nome, nome da mãe, data de
+     * nascimento e sexo, 3 - atualizar um usuário, onde serão pedidos os dados de identificação anteriores e por seguinte
+     * os novos dados do usuário e por fim 4 - consultar um usuário, onde será requisitado os dados de identificacao
+     * do indivíduo e seus dados serão exibidos.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         int opcao = 9;
         do {
@@ -40,7 +53,7 @@ public class Main {
                         localizaPessoa(leitor, verificaDadosDao);
                         break;
                     case 3:
-                        atualizaDados (leitor, leitorNumerico, verificaDadosDao);
+                        atualizaDados(leitor, leitorNumerico, verificaDadosDao);
                         break;
                     case 4:
                         consultaPessoa(leitor, verificaDadosDao);
@@ -52,8 +65,14 @@ public class Main {
         } while (opcao != 0);
     }
 
-
-
+    /**
+     * Método responsável por criar um novo indivíduo. Seus dados serão requisitados e, se tudo ocorrer bem, serão
+     * gravados no banco de dados.
+     *
+     * @param leitor
+     * @param leitorNumerico
+     * @param verificaDadosDao
+     */
     private static void criaIndividuo(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao) {
         // Verifica se individuo ja existe
         String nome, nomeMae, dataNascimento, sexo;
@@ -486,6 +505,12 @@ public class Main {
             }
     }
 
+    /**
+     * Método responsável por localizar um indivíduo no banco de dados.
+     *
+     * @param leitor
+     * @param verificaDadosDao
+     */
     private static void localizaPessoa(Scanner leitor, VerificaDadosDao verificaDadosDao) {
         String nome, nomeMae, dataNascimento, sexo;
         System.out.print("Informe o nome completo do individuo: ");
@@ -505,6 +530,13 @@ public class Main {
             System.out.println("Pessoa nao localizada na base de dados!");
     }
 
+    /**
+     * Método responsável por atualizar um indivíduo no banco de dados.
+     *
+     * @param leitor
+     * @param leitorNumerico
+     * @param verificaDadosDao
+     */
     private static void atualizaDados(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao) {
         System.out.print("O que deseja atualizar:\n" +
                 "(1 - Nome, 2 - Endereco, 3 - Dado Demografico)\n" +
@@ -548,6 +580,12 @@ public class Main {
         }
     }
 
+    /**
+     * Método responsável por consultar os dados de um indivíduo no banco de dados.
+     *
+     * @param leitor
+     * @param verificaDadosDao
+     */
     private static void consultaPessoa(Scanner leitor, VerificaDadosDao verificaDadosDao) {
         String nome, nomeMae, dataNascimento, sexo;
         System.out.print("Informe o nome completo do individuo: ");
@@ -688,6 +726,237 @@ public class Main {
             System.out.println("Pessoa nao localizada na base de dados!");
     }
 
+    /**
+     * Método responsável por ler os dados de nome de um individuo.
+     *
+     * @param leitor
+     * @param leitorNumerico
+     * @param nomeDto
+     */
+    private static void leNome(Scanner leitor, Scanner leitorNumerico, NomeDto nomeDto) {
+        boolean verificador;
+        String titulos = "", sufixos = "";
+        String nomes;
+        String sobrenomes;
+        int preferido;
+        int usoCondicional;
+        int uso;
+        String inicioUso;
+        String fimUso;
+        do {
+            verificador = true;
+            try {
+                System.out.print("Possui titulo:\n" +
+                        "(1 - Sim, 2 - Nao)\n" +
+                        "Opcao: ");
+                int opcao = leitorNumerico.nextInt();
+                if (opcao == 1) {
+                    System.out.print("Titulos: ");
+                    titulos = leitor.nextLine() + " ";
+                    nomeDto.setTitulos(titulos);
+                }
+
+                System.out.print("\nNome: ");
+                nomes = leitor.nextLine() + " ";
+                nomeDto.setNomes(nomes);
+
+                System.out.print("\nSobrenomes: ");
+                sobrenomes = leitor.nextLine();
+                nomeDto.setSobrenomes(sobrenomes);
+
+                System.out.print("\nPossui sufixo:\n" +
+                        "(1 - Sim, 2 - Nao)\n" +
+                        "Opcao: ");
+                opcao = leitorNumerico.nextInt();
+                if (opcao == 1) {
+                    System.out.print("\nSufixos: ");
+                    sufixos = " " + leitor.nextLine();
+                    nomeDto.setSufixos(sufixos);
+                }
+
+                nomeDto.setNomeCompleto(titulos + nomes + sobrenomes + sufixos);
+
+                do {
+                    System.out.print("\nPreferido:\n" +
+                            "(1 - Este é o nome preferido. Deve ser usado, exceto se um uso específico, " +
+                            "comentado adiante, indicar o uso de outro nome)\n" +
+                            "(2 - Este não é o nome preferido)\n" +
+                            "Opcao: ");
+                    preferido = leitorNumerico.nextInt();
+                    if (preferido <= 0 || preferido > 2)
+                        System.out.println("Ha algo errado, tente novamente");
+                } while (preferido <= 0 || preferido > 2);
+                nomeDto.setPreferido(preferido);
+
+                do {
+                    System.out.print("\nCondicao de uso:\n" +
+                            "(1 - Informação não confiável, 2 - Nome com erro de digitação, 3 - Nome para não ser usado)\n" +
+                            "(4 - Vínculo do nome proibido por lei, 5 - Requisito de privacidade/segurança especial)\n" +
+                            "(6 - Nome temporário, 7 - Nao se aplica)\n" +
+                            "Opcao: ");
+                    usoCondicional = leitorNumerico.nextInt();
+                    if (usoCondicional <= 0 || usoCondicional > 7)
+                        System.out.println("Ha algo errado, tente novamente");
+                } while (usoCondicional <= 0 || usoCondicional > 7);
+                nomeDto.setUsoCondicional(usoCondicional);
+
+
+                do {
+                    System.out.print("\nUso:\n" +
+                            "(1 - Relatório, 2 - Nome de recém-nascido, 3 - Nome profissional ou comercial)\n" +
+                            "(4 - Nome de solteiro, nome de nascimento ou nome original, 5 - Nome registrado (nome legal))\n" +
+                            "(6 - Outro nome (alias))\n" +
+                            "Opcao: ");
+                    uso = leitorNumerico.nextInt();
+                    if (uso <= 0 || uso > 6)
+                        System.out.println("Ha algo errado, tente novamente");
+                } while (uso <= 0 || uso > 6);
+                nomeDto.setUso(uso);
+
+                System.out.print("\nInicio do uso do nome: ");
+                inicioUso = leitor.nextLine();
+                nomeDto.setInicioUso(inicioUso);
+
+                System.out.print("\nFim do uso do nome: ");
+                fimUso = leitor.nextLine();
+                nomeDto.setFimUso(fimUso);
+            } catch (InputMismatchException e) {
+                System.out.println("\nVocê digitou algo irregular, vamos começar de novo\n");
+                verificador = false;
+                leitorNumerico.next();
+            }
+        } while (!verificador);
+    }
+
+    /**
+     * Método responsável por ler os dados de endereço de um individuo.
+     *
+     * @param leitor
+     * @param leitorNumerico
+     * @param verificaDadosDao
+     * @param enderecoDto
+     */
+    private static void leEndereco(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao, EnderecoDto enderecoDto) {
+        boolean verificador;
+        int tipoEndereco;
+        String endereco;
+        String bairro;
+        String distrito;
+        String municipio;
+        String estadoEndereco;
+        String cep;
+        String caixaPostal;
+        String pais;
+        String dataInicioEndereco;
+        String acuraciaIncio;
+        String dataFimEndereco;
+        String acuraciaFim;
+        do {
+            verificador = true;
+            try {
+                System.out.print("Tipo do endereco:\n" +
+                        "(1 - Comercial, 2 - Correio ou postal, 3 - Acomodacao temporaria)\n" +
+                        "(4 - Residencial, 5 - Sem endereco fixo, 6 - Desconhecido/nao declarado)\n" +
+                        "Opcao: ");
+                do {
+                    tipoEndereco = leitorNumerico.nextInt();
+                } while (tipoEndereco <= 0 || tipoEndereco > 6);
+                enderecoDto.setTipo(tipoEndereco);
+
+                System.out.print("\nEndereco: ");
+                endereco = leitor.nextLine();
+                enderecoDto.setEndereco(endereco);
+
+                System.out.print("\nBairro: ");
+                bairro = leitor.nextLine();
+                enderecoDto.setBairro(bairro);
+
+                System.out.print("\nDistrito: ");
+                distrito = leitor.nextLine();
+                enderecoDto.setDistrito(distrito);
+
+                do {
+                    System.out.print("\nMunicipio: ");
+                    municipio = leitor.nextLine();
+                    if (verificaDadosDao.verificaMunicipio(municipio) == null)
+                        System.out.println("Municipio nao existe ou nome inserido incorretamente. Tente novamente");
+                } while (verificaDadosDao.verificaMunicipio(municipio) == null);
+                enderecoDto.setMunicipio(municipio);
+
+                do {
+                    System.out.print("\nEstado: ");
+                    estadoEndereco = leitor.nextLine();
+                    if (verificaDadosDao.verificaEstado(estadoEndereco) == null)
+                        System.out.println("Estado nao existe ou nome inserido incorretamente. Tente novamente");
+                } while (verificaDadosDao.verificaEstado(estadoEndereco) == null);
+                enderecoDto.setEstado(estadoEndereco);
+
+                System.out.print("\nCEP: ");
+                cep = leitor.nextLine();
+                enderecoDto.setCep(cep);
+
+                System.out.print("\nCaixa postal: ");
+                caixaPostal = leitor.nextLine();
+                enderecoDto.setCaixaPostal(caixaPostal);
+
+                do {
+                    System.out.print("\nPais: ");
+                    pais = leitor.nextLine();
+                    if (verificaDadosDao.verificaPais(pais) == null)
+                        System.out.println("Pais nao existe ou nome inserido incorretamente. Tente novamente");
+                } while (verificaDadosDao.verificaPais(pais) == null);
+                enderecoDto.setPais(pais);
+
+                System.out.print("\nInicio do uso deste endereco: ");
+                dataInicioEndereco = leitor.nextLine();
+                enderecoDto.setDataInicio(dataInicioEndereco);
+
+                do {
+                    System.out.print("\nAcuracia da data de inicio de uso do endereco:\n" +
+                            "(A - Acurado, E - Estimado, D - Desconhecido)\n" +
+                            "Opcao: ");
+                    acuraciaIncio = leitor.nextLine();
+                    if (!acuraciaIncio.equals("A".toLowerCase()) && !acuraciaIncio.equals("E".toLowerCase())
+                            && !acuraciaIncio.equals("D".toLowerCase()))
+                        System.out.println("Ha algo errado, tente novamente");
+                }
+                while (!acuraciaIncio.equals("A".toLowerCase()) && !acuraciaIncio.equals("E".toLowerCase())
+                        && !acuraciaIncio.equals("D".toLowerCase()));
+                enderecoDto.setAcuraciaInicio(acuraciaIncio);
+
+                System.out.print("\nFim de uso deste endereco: ");
+                dataFimEndereco = leitor.nextLine();
+                enderecoDto.setDataFim(dataFimEndereco);
+
+                do {
+                    System.out.print("\nAcuracia da data de fim de uso do endereco:\n" +
+                            "(A - Acurado, E - Estimado, D - Desconhecido)\n" +
+                            "Opcao: ");
+                    acuraciaFim = leitor.nextLine();
+                    if (!acuraciaFim.equals("A".toLowerCase()) && !acuraciaFim.equals("E".toLowerCase())
+                            && !acuraciaFim.equals("D".toLowerCase()))
+                        System.out.println("Ha algo errado, tente novamente");
+                }
+                while (!acuraciaFim.equals("A".toLowerCase()) && !acuraciaFim.equals("E".toLowerCase())
+                        && !acuraciaFim.equals("D".toLowerCase()));
+                enderecoDto.setAcuraciaFim(acuraciaFim);
+
+            } catch (InputMismatchException e) {
+                System.out.println("\nVocê digitou algo irregular, vamos começar de novo\n");
+                verificador = false;
+                leitorNumerico.next();
+            }
+        } while (!verificador);
+    }
+
+    /**
+     * Método responsável por ler os dados demográficos de um individuo.
+     *
+     * @param leitor
+     * @param leitorNumerico
+     * @param verificaDadosDao
+     * @param dadoDemograficoDto
+     */
     private static void leDadoDemografico(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao, DadoDemograficoDto dadoDemograficoDto) {
         boolean verificador;
         String dataNascimento;
@@ -884,212 +1153,5 @@ public class Main {
         } while (!verificador);
     }
 
-    private static void leEndereco(Scanner leitor, Scanner leitorNumerico, VerificaDadosDao verificaDadosDao, EnderecoDto enderecoDto) {
-        boolean verificador;
-        int tipoEndereco;
-        String endereco;
-        String bairro;
-        String distrito;
-        String municipio;
-        String estadoEndereco;
-        String cep;
-        String caixaPostal;
-        String pais;
-        String dataInicioEndereco;
-        String acuraciaIncio;
-        String dataFimEndereco;
-        String acuraciaFim;
-        do {
-            verificador = true;
-            try {
-                System.out.print("Tipo do endereco:\n" +
-                        "(1 - Comercial, 2 - Correio ou postal, 3 - Acomodacao temporaria)\n" +
-                        "(4 - Residencial, 5 - Sem endereco fixo, 6 - Desconhecido/nao declarado)\n" +
-                        "Opcao: ");
-                do {
-                    tipoEndereco = leitorNumerico.nextInt();
-                } while (tipoEndereco <= 0 || tipoEndereco > 6);
-                enderecoDto.setTipo(tipoEndereco);
-
-                System.out.print("\nEndereco: ");
-                endereco = leitor.nextLine();
-                enderecoDto.setEndereco(endereco);
-
-                System.out.print("\nBairro: ");
-                bairro = leitor.nextLine();
-                enderecoDto.setBairro(bairro);
-
-                System.out.print("\nDistrito: ");
-                distrito = leitor.nextLine();
-                enderecoDto.setDistrito(distrito);
-
-                do {
-                    System.out.print("\nMunicipio: ");
-                    municipio = leitor.nextLine();
-                    if (verificaDadosDao.verificaMunicipio(municipio) == null)
-                        System.out.println("Municipio nao existe ou nome inserido incorretamente. Tente novamente");
-                } while (verificaDadosDao.verificaMunicipio(municipio) == null);
-                enderecoDto.setMunicipio(municipio);
-
-                do {
-                    System.out.print("\nEstado: ");
-                    estadoEndereco = leitor.nextLine();
-                    if (verificaDadosDao.verificaEstado(estadoEndereco) == null)
-                        System.out.println("Estado nao existe ou nome inserido incorretamente. Tente novamente");
-                } while (verificaDadosDao.verificaEstado(estadoEndereco) == null);
-                enderecoDto.setEstado(estadoEndereco);
-
-                System.out.print("\nCEP: ");
-                cep = leitor.nextLine();
-                enderecoDto.setCep(cep);
-
-                System.out.print("\nCaixa postal: ");
-                caixaPostal = leitor.nextLine();
-                enderecoDto.setCaixaPostal(caixaPostal);
-
-                do {
-                    System.out.print("\nPais: ");
-                    pais = leitor.nextLine();
-                    if (verificaDadosDao.verificaPais(pais) == null)
-                        System.out.println("Pais nao existe ou nome inserido incorretamente. Tente novamente");
-                } while (verificaDadosDao.verificaPais(pais) == null);
-                enderecoDto.setPais(pais);
-
-                System.out.print("\nInicio do uso deste endereco: ");
-                dataInicioEndereco = leitor.nextLine();
-                enderecoDto.setDataInicio(dataInicioEndereco);
-
-                do {
-                    System.out.print("\nAcuracia da data de inicio de uso do endereco:\n" +
-                            "(A - Acurado, E - Estimado, D - Desconhecido)\n" +
-                            "Opcao: ");
-                    acuraciaIncio = leitor.nextLine();
-                    if (!acuraciaIncio.equals("A".toLowerCase()) && !acuraciaIncio.equals("E".toLowerCase())
-                            && !acuraciaIncio.equals("D".toLowerCase()))
-                        System.out.println("Ha algo errado, tente novamente");
-                }
-                while (!acuraciaIncio.equals("A".toLowerCase()) && !acuraciaIncio.equals("E".toLowerCase())
-                        && !acuraciaIncio.equals("D".toLowerCase()));
-                enderecoDto.setAcuraciaInicio(acuraciaIncio);
-
-                System.out.print("\nFim de uso deste endereco: ");
-                dataFimEndereco = leitor.nextLine();
-                enderecoDto.setDataFim(dataFimEndereco);
-
-                do {
-                    System.out.print("\nAcuracia da data de fim de uso do endereco:\n" +
-                            "(A - Acurado, E - Estimado, D - Desconhecido)\n" +
-                            "Opcao: ");
-                    acuraciaFim = leitor.nextLine();
-                    if (!acuraciaFim.equals("A".toLowerCase()) && !acuraciaFim.equals("E".toLowerCase())
-                            && !acuraciaFim.equals("D".toLowerCase()))
-                        System.out.println("Ha algo errado, tente novamente");
-                }
-                while (!acuraciaFim.equals("A".toLowerCase()) && !acuraciaFim.equals("E".toLowerCase())
-                        && !acuraciaFim.equals("D".toLowerCase()));
-                enderecoDto.setAcuraciaFim(acuraciaFim);
-
-            } catch (InputMismatchException e) {
-                System.out.println("\nVocê digitou algo irregular, vamos começar de novo\n");
-                verificador = false;
-                leitorNumerico.next();
-            }
-        } while (!verificador);
-    }
-
-    private static void leNome(Scanner leitor, Scanner leitorNumerico, NomeDto nomeDto) {
-        boolean verificador;
-        String titulos = "", sufixos = "";
-        String nomes;
-        String sobrenomes;
-        int preferido;
-        int usoCondicional;
-        int uso;
-        String inicioUso;
-        String fimUso;
-        do {
-            verificador = true;
-            try {
-                System.out.print("Possui titulo:\n" +
-                        "(1 - Sim, 2 - Nao)\n" +
-                        "Opcao: ");
-                int opcao = leitorNumerico.nextInt();
-                if (opcao == 1) {
-                    System.out.print("Titulos: ");
-                    titulos = leitor.nextLine() + " ";
-                    nomeDto.setTitulos(titulos);
-                }
-
-                System.out.print("\nNome: ");
-                nomes = leitor.nextLine() + " ";
-                nomeDto.setNomes(nomes);
-
-                System.out.print("\nSobrenomes: ");
-                sobrenomes = leitor.nextLine();
-                nomeDto.setSobrenomes(sobrenomes);
-
-                System.out.print("\nPossui sufixo:\n" +
-                        "(1 - Sim, 2 - Nao)\n" +
-                        "Opcao: ");
-                opcao = leitorNumerico.nextInt();
-                if (opcao == 1) {
-                    System.out.print("\nSufixos: ");
-                    sufixos = " " + leitor.nextLine();
-                    nomeDto.setSufixos(sufixos);
-                }
-
-                nomeDto.setNomeCompleto(titulos + nomes + sobrenomes + sufixos);
-
-                do {
-                    System.out.print("\nPreferido:\n" +
-                            "(1 - Este é o nome preferido. Deve ser usado, exceto se um uso específico, " +
-                            "comentado adiante, indicar o uso de outro nome)\n" +
-                            "(2 - Este não é o nome preferido)\n" +
-                            "Opcao: ");
-                    preferido = leitorNumerico.nextInt();
-                    if (preferido <= 0 || preferido > 2)
-                        System.out.println("Ha algo errado, tente novamente");
-                } while (preferido <= 0 || preferido > 2);
-                nomeDto.setPreferido(preferido);
-
-                do {
-                    System.out.print("\nCondicao de uso:\n" +
-                            "(1 - Informação não confiável, 2 - Nome com erro de digitação, 3 - Nome para não ser usado)\n" +
-                            "(4 - Vínculo do nome proibido por lei, 5 - Requisito de privacidade/segurança especial)\n" +
-                            "(6 - Nome temporário, 7 - Nao se aplica)\n" +
-                            "Opcao: ");
-                    usoCondicional = leitorNumerico.nextInt();
-                    if (usoCondicional <= 0 || usoCondicional > 7)
-                        System.out.println("Ha algo errado, tente novamente");
-                } while (usoCondicional <= 0 || usoCondicional > 7);
-                nomeDto.setUsoCondicional(usoCondicional);
-
-
-                do {
-                    System.out.print("\nUso:\n" +
-                            "(1 - Relatório, 2 - Nome de recém-nascido, 3 - Nome profissional ou comercial)\n" +
-                            "(4 - Nome de solteiro, nome de nascimento ou nome original, 5 - Nome registrado (nome legal))\n" +
-                            "(6 - Outro nome (alias))\n" +
-                            "Opcao: ");
-                    uso = leitorNumerico.nextInt();
-                    if (uso <= 0 || uso > 6)
-                        System.out.println("Ha algo errado, tente novamente");
-                } while (uso <= 0 || uso > 6);
-                nomeDto.setUso(uso);
-
-                System.out.print("\nInicio do uso do nome: ");
-                inicioUso = leitor.nextLine();
-                nomeDto.setInicioUso(inicioUso);
-
-                System.out.print("\nFim do uso do nome: ");
-                fimUso = leitor.nextLine();
-                nomeDto.setFimUso(fimUso);
-            } catch (InputMismatchException e) {
-                System.out.println("\nVocê digitou algo irregular, vamos começar de novo\n");
-                verificador = false;
-                leitorNumerico.next();
-            }
-        } while (!verificador);
-    }
 
 }

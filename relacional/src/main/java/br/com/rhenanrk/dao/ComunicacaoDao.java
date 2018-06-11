@@ -14,7 +14,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela COMUNICACAO.
+ *
+ */
 public class ComunicacaoDao {
+
+    /**
+     * Método responsável por inserir uma forma de comunicacao no banco de dados.
+     *
+     * @param comunicacaoDto
+     */
     public void inserir(ComunicacaoDto comunicacaoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -36,6 +46,12 @@ public class ComunicacaoDao {
         }
     }
 
+    /**
+     * Método responsável por consultar a forma de comunicação do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @return
+     */
     public ComunicacaoDto consultaComunicacao(String surrogatekey) {
         ComunicacaoDto comunicacaoDto = new ComunicacaoDto();
         try {

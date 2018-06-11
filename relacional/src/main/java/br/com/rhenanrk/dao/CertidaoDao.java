@@ -14,7 +14,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela CERTIDAO.
+ *
+ */
 public class CertidaoDao {
+
+    /**
+     * Método responsável por inserir uma certidão no banco de dados.
+     *
+     * @param certidaoDto
+     */
     public void inserir(CertidaoDto certidaoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -38,6 +48,13 @@ public class CertidaoDao {
         }
     }
 
+    /**
+     * Método responsável por consultar a certidão do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @param idCod
+     * @return
+     */
     public CertidaoDto consultaCertidao(String surrogatekey, String idCod) {
         CertidaoDto certidaoDto = new CertidaoDto();
         try {

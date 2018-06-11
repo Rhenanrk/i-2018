@@ -14,7 +14,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela NOME
+ */
 public class NomeDao {
+
+    /**
+     * Método responsável por inserir o nome do indivíduo no banco de dados.
+     *
+     * @param nomeDto
+     * @return
+     */
     public boolean inserir(NomeDto nomeDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -45,6 +55,13 @@ public class NomeDao {
         }
     }
 
+    /**
+     * Método responsável por atualizar o nome do indivíduo no banco de dados.
+     *
+     * @param surrogateKey
+     * @param nomeDto
+     * @return
+     */
     public boolean atualizaNome(String surrogateKey, NomeDto nomeDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -76,6 +93,12 @@ public class NomeDao {
         }
     }
 
+    /**
+     * Método responsável por consultar o nome do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @return
+     */
     public NomeDto consultaNome(String surrogatekey) {
         NomeDto nomeDto = new NomeDto();
         try {

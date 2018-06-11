@@ -14,7 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela VINCULO
+ */
 public class VinculoDao {
+
+    /**
+     * Método responsável por inserir um vinculo do indivíduo no banco de dados.
+     *
+     * @param vinculoDto
+     */
     public void inserir(VinculoDto vinculoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -36,6 +45,12 @@ public class VinculoDao {
         }
     }
 
+    /**
+     * Método responsável por consultar o vinculo do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @return
+     */
     public VinculoDto consultaVinculo(String surrogatekey) {
         VinculoDto vinculoDto = new VinculoDto();
         try {

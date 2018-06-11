@@ -13,7 +13,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela INDIVIDUO
+ */
 public class IndividuoDao {
+
+    /**
+     * Método responsável por inserir a chave do indivíduo no banco de dados.
+     *
+     * @param individuoDTO
+     * @return
+     */
     public boolean inserir(IndividuoDto individuoDTO) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();

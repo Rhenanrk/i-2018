@@ -14,7 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela DADODEMOGRAFICO
+ *
+ */
 public class DadoDemograficoDao {
+
+    /**
+     * Método responsável por inserir os dados demograficos do indivíduo no banco de dados.
+     * @param dadoDemograficoDto
+     */
     public void inserir(DadoDemograficoDto dadoDemograficoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -50,6 +59,11 @@ public class DadoDemograficoDao {
         }
     }
 
+    /**
+     * Método responsável por atualizar os dados demograficos do indivíduo no banco de dados.
+     * @param surrogateKey
+     * @param dadoDemograficoDto
+     */
     public void atualizadaDados(String surrogateKey, DadoDemograficoDto dadoDemograficoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -88,6 +102,11 @@ public class DadoDemograficoDao {
         }
     }
 
+    /**
+     * Método responsável por consultar os dados demograficos do indivíduo no banco de dados.
+     * @param surrogatekey
+     * @return
+     */
     public DadoDemograficoDto consultaDadoDemografico(String surrogatekey) {
         DadoDemograficoDto dadoDemograficoDto = new DadoDemograficoDto();
         try {

@@ -6,6 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
+/**
+ * Classe responsável por abstrair o objeto Endereço.
+ */
 public class EnderecoDto {
 
     private String surrogateKey;

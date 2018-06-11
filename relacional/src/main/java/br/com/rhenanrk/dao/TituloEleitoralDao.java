@@ -14,7 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela TITULOELEITORAL
+ */
 public class TituloEleitoralDao {
+
+    /**
+     * Método responsável por inserir o titulo eleitoral do indivíduo no banco de dados.
+     *
+     * @param tituloEleitoralDto
+     */
     public void inserir(TituloEleitoralDto tituloEleitoralDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -35,6 +44,13 @@ public class TituloEleitoralDao {
         }
     }
 
+    /**
+     * Método responsável por consultar o titulo eleitoral do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @param idCod
+     * @return
+     */
     public TituloEleitoralDto consultaTituloEleitoral(String surrogatekey, String idCod) {
         TituloEleitoralDto tituloEleitoralDto = new TituloEleitoralDto();
         try {

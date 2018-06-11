@@ -14,7 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela ENDERECO
+ */
 public class EnderecoDao {
+
+    /**
+     * Método responsável por inserir o endereço do indivíduo no banco de dados.
+     *
+     * @param enderecoDto
+     */
     public void inserir(EnderecoDto enderecoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -45,6 +54,12 @@ public class EnderecoDao {
         }
     }
 
+    /**
+     * Método responsável por atualizar o endereço do indivíduo no banco de dados.
+     *
+     * @param surrogateKey
+     * @param enderecoDto
+     */
     public void atualizaEndereco(String surrogateKey, EnderecoDto enderecoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -77,6 +92,12 @@ public class EnderecoDao {
         }
     }
 
+    /**
+     * Método responsável por consultar o endereço do indivíduo no banco de dados.
+     *
+     * @param surrogatekey
+     * @return
+     */
     public EnderecoDto consultaEndereco(String surrogatekey) {
         EnderecoDto enderecoDto = new EnderecoDto();
         try {

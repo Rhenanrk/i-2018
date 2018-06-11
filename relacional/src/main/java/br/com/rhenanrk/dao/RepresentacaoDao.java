@@ -13,7 +13,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela REPRESENTACAO
+ */
 public class RepresentacaoDao {
+
+    /**
+     * Método responsável por inserir a representação do indivíduo no banco de dados.
+     *
+     * @param representacaoDto
+     */
     public void inserir(RepresentacaoDto representacaoDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();

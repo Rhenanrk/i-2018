@@ -13,8 +13,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por consultar dados no banco de dados.
+ * É utilizada para comparar o dado de entrada do usuário com uma base de dados que contem dados válidos para
+ * cada caso específico.
+ * Os métodos retornam se o dado entrado pelo usuário é real ou não
+ */
 public class VerificaDadosDao {
 
+    /**
+     * Método responsável por verificar se uma surrogateKey existe no banco de dados.
+     *
+     * @param surrogateKey
+     * @return
+     */
     public String verificaSurrogateKey(String surrogateKey) {
         String SurrogateKey = null;
 
@@ -39,6 +51,12 @@ public class VerificaDadosDao {
         return SurrogateKey;
     }
 
+    /**
+     * Método responsável por verificar se um determinado orgão emissor existe.
+     *
+     * @param orgaoEmissor
+     * @return
+     */
     public String verificaOrgaoEmissor(String orgaoEmissor) {
         String nome_orgaoEmissor = null;
 
@@ -63,6 +81,12 @@ public class VerificaDadosDao {
         return nome_orgaoEmissor;
     }
 
+    /**
+     * Método responsável por verificar se um determinado relacionamento existe.
+     *
+     * @param relacionamento
+     * @return
+     */
     public String verificaRelacionamento(String relacionamento) {
         String tipo_relacionamento = null;
 
@@ -87,6 +111,12 @@ public class VerificaDadosDao {
         return tipo_relacionamento;
     }
 
+    /**
+     * Método responsável por verificar se um determinado país existe.
+     *
+     * @param pais
+     * @return
+     */
     public String verificaPais(String pais) {
         String nome_pais = null;
 
@@ -111,6 +141,12 @@ public class VerificaDadosDao {
         return nome_pais;
     }
 
+    /**
+     * Método responsável por verificar se um determinado estado brasileiro existe.
+     *
+     * @param estado
+     * @return
+     */
     public String verificaEstado(String estado) {
         String nome_estado = null;
 
@@ -135,6 +171,12 @@ public class VerificaDadosDao {
         return nome_estado;
     }
 
+    /**
+     * Método responsável por verificar se um determinado município brasileiro existe.
+     *
+     * @param municipio
+     * @return
+     */
     public String verificaMunicipio(String municipio) {
         String nome_municipio = null;
 
@@ -159,6 +201,15 @@ public class VerificaDadosDao {
         return nome_municipio;
     }
 
+    /**
+     * Método responsável por verificar se um determinado indivíduo existe no banco de dados.
+     *
+     * @param nomeCompleto
+     * @param nomeMae
+     * @param dataNascimento
+     * @param sexo
+     * @return
+     */
     public boolean localizaIndividuo(String nomeCompleto, String nomeMae, String dataNascimento, String sexo) {
         boolean localizador = true;
         try {
@@ -186,6 +237,15 @@ public class VerificaDadosDao {
         return localizador;
     }
 
+    /**
+     * Método responsável por retornar a surrogateKey de um determinado indivíduo.
+     *
+     * @param nomeCompleto
+     * @param nomeMae
+     * @param dataNascimento
+     * @param sexo
+     * @return
+     */
     public String retornaSurrogateKey(String nomeCompleto, String nomeMae, String dataNascimento, String sexo) {
         String surrogateKey = null;
         try {

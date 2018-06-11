@@ -6,6 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
+/**
+ * Classe responsável por abstrair o objeto Titulo eleitoral.
+ */
 public class TituloEleitoralDto {
 
     private String idCod;

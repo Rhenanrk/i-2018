@@ -6,6 +6,9 @@
 
 package br.com.rhenanrk.dto;
 
+/**
+ * Classe responsável por abstrair o objeto Dado demografico.
+ */
 public class DadoDemograficoDto {
 
     private String surrogateKey;

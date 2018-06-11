@@ -14,7 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela IDENTIFICADOR
+ *
+ */
 public class IdentificadorDao {
+
+    /**
+     * Método responsável por inserir o identificador do indivíduo no banco de dados.
+     * @param identificadorDto
+     */
     public void inserir(IdentificadorDto identificadorDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -38,6 +47,11 @@ public class IdentificadorDao {
         }
     }
 
+    /**
+     * Método responsável por consultar o identificador do indivíduo no banco de dados.
+     * @param surrogatekey
+     * @return
+     */
     public IdentificadorDto consultaIdentificador(String surrogatekey) {
         IdentificadorDto identificadorDto = new IdentificadorDto();
         try {

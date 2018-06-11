@@ -14,7 +14,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por interagir com o banco de dados na tabela CTPS
+ *
+ */
 public class CtpsDao {
+
+    /**
+     * Método responsável por inserir a CTPS do indivíduo no banco de dados.
+     *
+     * @param ctpsDto
+     */
     public void inserir(CtpsDto ctpsDto) {
         try {
             Connection connection = ConexaoUtil.getInstance().getConnection();
@@ -35,6 +45,12 @@ public class CtpsDao {
         }
     }
 
+    /**
+     * Método responsável por consultar a CTPS do indivíduo no banco de dados.
+     * @param surrogatekey
+     * @param idCod
+     * @return
+     */
     public CtpsDto consultaCtps(String surrogatekey, String idCod) {
         CtpsDto ctpsDto = new CtpsDto();
         try {
